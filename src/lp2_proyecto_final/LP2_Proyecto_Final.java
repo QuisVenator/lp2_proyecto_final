@@ -15,6 +15,7 @@ public class LP2_Proyecto_Final {
         try {
             // db parameters
             File f = new File("chinook.db");
+            if(!f.exists()) System.out.println("Creando nueva base de datos!");
             String url = "jdbc:sqlite:"+f.getAbsolutePath();
             // create a connection to the database
             conn = DriverManager.getConnection(url);
