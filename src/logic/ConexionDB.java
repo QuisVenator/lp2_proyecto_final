@@ -1,4 +1,4 @@
-package lp2_proyecto_final;
+package logic;
 
 import java.io.File;
 import java.sql.Connection;
