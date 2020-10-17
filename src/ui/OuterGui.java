@@ -1,6 +1,9 @@
 package ui;
 
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
@@ -33,10 +36,17 @@ public final class OuterGui extends JFrame {
         //contentPanel.add(new FormularioIniciarSesion(), BorderLayout.CENTER);
         this.add(contentPanel);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
+        
+        try {
+            setIconImage(ImageIO.read(new File("iconos/bank.png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.setVisible(true);
     }
     
-    public void mostrar(JPanel panel) {
+    public void mostrarContenido(JPanel panel) {
         if(panel == null) return;
         
         if(innerGui != null)
@@ -49,5 +59,8 @@ public final class OuterGui extends JFrame {
     
     public HeaderGui getHeader() {
         return header;
+    }
+    public void mostrarHeader(JPanel panel) {
+        
     }
 }

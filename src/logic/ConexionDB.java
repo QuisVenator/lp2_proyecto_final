@@ -71,6 +71,7 @@ public class ConexionDB {
                 + "descripcion text,"
                 + "iconoPath text,"
                 + "cuenta integer NOT NULL,"
+                + "monto real CHECK(monto > 0)"
                 + "FOREIGN KEY(cuenta) REFERENCES Cuenta(nrCuenta)"
                 + ");",
             "CREATE TABLE IF NOT EXISTS Log("

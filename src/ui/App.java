@@ -11,6 +11,9 @@ import logic.Sesion;
  */
 public class App implements ActionListener {
     public static final String FORMULARIO_INICIO_SESION = "incicio sesion";
+    public static final String FORMULARIO_PAGAR_SERVICIO = "pago servicio";
+    public static final String FORMULARIO_TRANSFERENCIA = "transferencia";
+    public static final String GUI_SALDO = "gui saldo";
     public static final String CERRAR_SESION = "cerrar sesion";
     
     private OuterGui outer;
@@ -21,11 +24,19 @@ public class App implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("heeyyy");
         switch(e.getActionCommand()) {
             case FORMULARIO_INICIO_SESION:
             case CERRAR_SESION:
-                outer.mostrar(new FormularioIniciarSesion(this));
+                outer.mostrarContenido(new FormularioIniciarSesion(this));
+                break;
+            case FORMULARIO_PAGAR_SERVICIO:
+                outer.mostrarContenido(new FormularioPagarServicio());
+                break;
+            case FORMULARIO_TRANSFERENCIA:
+                outer.mostrarContenido(new FormularioTransferencia(this));
+                break;
+            case GUI_SALDO:
+                outer.mostrarContenido(new GuiSaldo());
                 break;
         }
     }
