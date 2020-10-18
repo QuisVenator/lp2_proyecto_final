@@ -10,68 +10,139 @@ import javax.swing.*;
  * @author Manuel René Pauls Toews
  */
 public final class HeaderGui extends JPanel {
+    public static final int HEADER_VACIO = 0;
+    public static final int HEADER_CLIENTE = 1;
+    public static final int HEADER_ADMIN = 2;
+    
     private String name;
-    private JLabel nameLabel;
-    private JButton cerrarSesion;
+    private JLabel nameLabel, nombre;
+    private JButton cerrarSesion, informeBtn, pagarServicioBtn, saldoBtn, transferenciaBtn;
+    private JButton agregarServicioBtn, eliminarServicioBtn, desbloquarCuentaBtn, agregarCuentaBtn, eliminarCuentaBtn, depositoBtn;
     private JPanel sesion, menu;
     private App app;
     public HeaderGui(App app) {
         this.app = app;
-        sesion = new JPanel();
-        menu = new JPanel();
         this.setLayout(new BorderLayout());
-        
-        menu.setLayout(new FlowLayout(FlowLayout.LEADING));
-        JLabel nombre = new JLabel("WEB BANKING", new ImageIcon("iconos/bank_32.png"), JLabel.CENTER);
-        nombre.setFont(new Font(nombre.getName(), Font.PLAIN, 20));
-        menu.add(nombre);
-        JButton informeBtn = new JButton("Informe");
-        informeBtn.setIcon(new ImageIcon("iconos/informe_16.png"));
-        menu.add(informeBtn);
-        JButton pagarServicioBtn = new JButton("Pagar Servicio");
-        pagarServicioBtn.setActionCommand(App.FORMULARIO_PAGAR_SERVICIO);
-        pagarServicioBtn.addActionListener(app);
-        pagarServicioBtn.setIcon(new ImageIcon("iconos/pagar_servicio_16.png"));
-        menu.add(pagarServicioBtn);
-        menu.add(informeBtn);
-        JButton saldoBtn = new JButton("Saldo");
-        saldoBtn.setActionCommand(App.GUI_SALDO);
-        saldoBtn.addActionListener(app);
-        saldoBtn.setIcon(new ImageIcon("iconos/saldo_16.png"));
-        menu.add(saldoBtn);
-        menu.add(informeBtn);
-        JButton transferenciaBtn = new JButton("Transferencia");
-        transferenciaBtn.setActionCommand(App.FORMULARIO_TRANSFERENCIA);
-        transferenciaBtn.addActionListener(app);
-        transferenciaBtn.setIcon(new ImageIcon("iconos/transferencia_16.png"));
-        menu.add(transferenciaBtn);
-        //menu.setBackground(Color.decode("#295fa6"));
-                
-        //sesion.setBackground(Color.decode("#295fa6"));
-        nameLabel = new JLabel();
-        nameLabel.setText("NR CUENTA");
-        cerrarSesion = new JButton("Cerrar Sesión");
-        cerrarSesion.setIcon(new ImageIcon("iconos/login_16.png"));
-        cerrarSesion.setActionCommand(App.FORMULARIO_INICIO_SESION);
-        cerrarSesion.addActionListener(app);
-        sesion.setLayout(new FlowLayout(FlowLayout.TRAILING));
-        sesion.add(nameLabel);
-        JButton tutorialBtn = new JButton("Tutorial");
-        tutorialBtn.setIcon(new ImageIcon("iconos/tutorial_16.png"));
-        sesion.add(tutorialBtn);
-        
-        sesion.add(cerrarSesion);
-        this.add(menu, BorderLayout.LINE_START);
-        this.add(sesion, BorderLayout.LINE_END);
+        setHeader(HEADER_VACIO);
     }
     
-    public void toggleSesionBtn() {
-        if(cerrarSesion.getActionCommand().equals(App.FORMULARIO_INICIO_SESION)) {
-            cerrarSesion.setText("Cerrar Sesion");
-            cerrarSesion.setActionCommand(App.CERRAR_SESION);
-        } else {
-            cerrarSesion.setText("Iniciar Sesion");
-            cerrarSesion.setActionCommand(App.CERRAR_SESION);
+    public void setHeader(int option) {
+        if(sesion != null) this.remove(sesion);
+        if(menu != null) this.remove(menu);
+        switch(option) {
+            case HEADER_VACIO:
+                sesion = new JPanel();
+                menu = new JPanel();
+
+                menu = new JPanel();
+                menu.setLayout(new FlowLayout(FlowLayout.LEADING));
+                nombre = new JLabel("WEB BANKING", new ImageIcon("iconos/bank_32.png"), JLabel.CENTER);
+                nombre.setFont(new Font(nombre.getName(), Font.PLAIN, 20));
+                menu.add(nombre);
+                
+                cerrarSesion = new JButton("Iniciar Sesión");
+                cerrarSesion.setIcon(new ImageIcon("iconos/login_16.png"));
+                cerrarSesion.setActionCommand(App.FORMULARIO_INICIO_SESION);
+                cerrarSesion.addActionListener(app);
+                sesion.setLayout(new FlowLayout(FlowLayout.TRAILING));
+                sesion.add(cerrarSesion);
+                this.add(menu, BorderLayout.LINE_START);
+                this.add(sesion, BorderLayout.LINE_END);
+                break;
+            case HEADER_ADMIN:
+                sesion = new JPanel();
+                menu = new JPanel();
+                
+                menu.setLayout(new FlowLayout(FlowLayout.LEADING));
+                nombre = new JLabel("WEB BANKING", new ImageIcon("iconos/bank_32.png"), JLabel.CENTER);
+                nombre.setFont(new Font(nombre.getName(), Font.PLAIN, 20));
+                menu.add(nombre);
+                agregarServicioBtn = new JButton("Agregar Servicio");
+                agregarServicioBtn.setActionCommand(App.FORMULARIO_AGREGAR_SERVICIO);
+                agregarServicioBtn.addActionListener(app);
+                agregarServicioBtn.setIcon(new ImageIcon("iconos/agregarServicio_16.png"));
+                menu.add(agregarServicioBtn);
+                eliminarServicioBtn = new JButton("Eliminar Servicio");
+                eliminarServicioBtn.setActionCommand(App.FORMULARIO_ELIMINAR_SERVICIO);
+                eliminarServicioBtn.addActionListener(app);
+                eliminarServicioBtn.setIcon(new ImageIcon("iconos/borrarServicio_16.png"));
+                menu.add(eliminarServicioBtn);
+                agregarCuentaBtn = new JButton("Agregar Cuenta");
+                agregarCuentaBtn.setActionCommand(App.FORMULARIO_AGREGAR_CUENTA);
+                agregarCuentaBtn.addActionListener(app);
+                agregarCuentaBtn.setIcon(new ImageIcon("iconos/agregarUsuario_16.png"));
+                menu.add(agregarCuentaBtn);
+                eliminarCuentaBtn = new JButton("Eliminar Cuenta");
+                eliminarCuentaBtn.setActionCommand(App.FORMULARIO_ELIMINAR_CUENTA);
+                eliminarCuentaBtn.addActionListener(app);
+                eliminarCuentaBtn.setIcon(new ImageIcon("iconos/borrarUsuario_16.png"));
+                menu.add(eliminarCuentaBtn);
+                desbloquarCuentaBtn = new JButton("Desbloquear Cuenta");
+                desbloquarCuentaBtn.setActionCommand(App.FORMULARIO_DESBLOQUEAR_CUENTA);
+                desbloquarCuentaBtn.addActionListener(app);
+                desbloquarCuentaBtn.setIcon(new ImageIcon("iconos/desbloquear_16.png"));
+                menu.add(desbloquarCuentaBtn);
+                depositoBtn = new JButton("Depósito");
+                depositoBtn.setActionCommand(App.FORMULARIO_DEPOSITO);
+                depositoBtn.addActionListener(app);
+                depositoBtn.setIcon(new ImageIcon("iconos/deposito_16.png"));
+                menu.add(depositoBtn);
+                
+                
+                cerrarSesion = new JButton("Cerrar Sesión");
+                cerrarSesion.setIcon(new ImageIcon("iconos/login_16.png"));
+                cerrarSesion.setActionCommand(App.CERRAR_SESION);
+                cerrarSesion.addActionListener(app);
+                sesion.setLayout(new FlowLayout(FlowLayout.TRAILING));
+                sesion.add(cerrarSesion);
+                this.add(menu, BorderLayout.LINE_START);
+                this.add(sesion, BorderLayout.LINE_END);
+                break;
+            case HEADER_CLIENTE:
+                sesion = new JPanel();
+                menu = new JPanel();
+
+                menu.setLayout(new FlowLayout(FlowLayout.LEADING));
+                nombre = new JLabel("WEB BANKING", new ImageIcon("iconos/bank_32.png"), JLabel.CENTER);
+                nombre.setFont(new Font(nombre.getName(), Font.PLAIN, 20));
+                menu.add(nombre);
+                informeBtn = new JButton("Informe");
+                informeBtn.setIcon(new ImageIcon("iconos/informe_16.png"));
+                menu.add(informeBtn);
+                pagarServicioBtn = new JButton("Pagar Servicio");
+                pagarServicioBtn.setActionCommand(App.FORMULARIO_PAGAR_SERVICIO);
+                pagarServicioBtn.addActionListener(app);
+                pagarServicioBtn.setIcon(new ImageIcon("iconos/pagar_servicio_16.png"));
+                menu.add(pagarServicioBtn);
+                saldoBtn = new JButton("Saldo");
+                saldoBtn.setActionCommand(App.GUI_SALDO);
+                saldoBtn.addActionListener(app);
+                saldoBtn.setIcon(new ImageIcon("iconos/saldo_16.png"));
+                menu.add(saldoBtn);
+                transferenciaBtn = new JButton("Transferencia");
+                transferenciaBtn.setActionCommand(App.FORMULARIO_TRANSFERENCIA);
+                transferenciaBtn.addActionListener(app);
+                transferenciaBtn.setIcon(new ImageIcon("iconos/transferencia_16.png"));
+                menu.add(transferenciaBtn);
+                
+                nameLabel = new JLabel();
+                nameLabel.setText("123456789");
+                cerrarSesion = new JButton("Cerrar Sesión");
+                cerrarSesion.setIcon(new ImageIcon("iconos/login_16.png"));
+                cerrarSesion.setActionCommand(App.CERRAR_SESION);
+                cerrarSesion.addActionListener(app);
+                sesion.setLayout(new FlowLayout(FlowLayout.TRAILING));
+                sesion.add(nameLabel);
+                JButton tutorialBtn = new JButton("Ayuda");
+                tutorialBtn.setIcon(new ImageIcon("iconos/tutorial_16.png"));
+                sesion.add(tutorialBtn);
+                
+                sesion.add(cerrarSesion);
+                this.add(menu, BorderLayout.LINE_START);
+                this.add(sesion, BorderLayout.LINE_END);
+                break;
         }
+        this.revalidate();
+        this.repaint();
     }
 }
