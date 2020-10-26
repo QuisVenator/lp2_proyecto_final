@@ -36,7 +36,7 @@ public class App implements ActionListener {
     
     public ResourceBundle getLanguage() {
         if(languages == null) {
-            languages = ListResourceBundle.getBundle("language", Locale.ENGLISH); 
+            languages = ListResourceBundle.getBundle("language");
         }
         
         return languages;

@@ -8,7 +8,6 @@ import java.util.ListResourceBundle;
  */
 public class language_en extends ListResourceBundle {
     private static final Object[][] CONTENTS = {
-        //buttons
         {"iniciarSesion",                   "Login"},
         {"nroCuenta",                       "Account"},
         {"pin",                             "PIN"},
@@ -34,7 +33,7 @@ public class language_en extends ListResourceBundle {
         {"eliminar",                        "Delete"},
         {"eliminarCuenta",                  "Delete Account"},
         {"eliminarServicio",                "Delete Service"},
-        {"nombreServicio",                  "Name Service"},
+        {"nombreServicio",                  "Name"},
         {"serviciosDisponibles",            "Available Services"},
         {"efectuarTransferencia",           "Make Transaction"},
         {"pinTransferencia",                "Transaction PIN"},
