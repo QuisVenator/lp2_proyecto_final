@@ -23,17 +23,16 @@ public final class OuterGui extends JFrame {
         contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
         header = new HeaderGui(app);
-        footer = new FooterGui();
+        footer = new FooterGui(app);
         
         innerGui = new JPanel();
         innerGui.setLayout(new BoxLayout(innerGui, BoxLayout.Y_AXIS));
         innerGui.setBackground(Color.decode("#f8f9fa"));
         
-        //contentPanel.add(header, BorderLayout.PAGE_START);
         contentPanel.add(footer, BorderLayout.PAGE_END);
         contentPanel.add(header, BorderLayout.PAGE_START);
         contentPanel.add(innerGui, BorderLayout.CENTER);
-        //contentPanel.add(new FormularioIniciarSesion(), BorderLayout.CENTER);
+        
         this.add(contentPanel);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         

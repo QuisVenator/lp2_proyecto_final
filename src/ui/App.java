@@ -3,6 +3,9 @@ package ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ListResourceBundle;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.JPanel;
 import logic.Sesion;
 import logic.excepciones.AuthentificationException;
@@ -25,9 +28,18 @@ public class App implements ActionListener {
     public static final String CERRAR_SESION = "cerrar sesion";
     
     private OuterGui outer;
+    private ResourceBundle languages;
     
     public App() {
         outer = new OuterGui(this);
+    }
+    
+    public ResourceBundle getLanguage() {
+        if(languages == null) {
+            languages = ListResourceBundle.getBundle("language"); 
+        }
+        
+        return languages;
     }
 
     @Override

@@ -40,7 +40,7 @@ public final class HeaderGui extends JPanel {
                 nombre.setFont(new Font(nombre.getName(), Font.PLAIN, 20));
                 menu.add(nombre);
                 
-                cerrarSesion = new JButton("Iniciar Sesión");
+                cerrarSesion = new JButton(app.getLanguage().getString("iniciarSesion"));
                 cerrarSesion.setIcon(new ImageIcon("iconos/login_16.png"));
                 cerrarSesion.setActionCommand(App.FORMULARIO_INICIO_SESION);
                 cerrarSesion.addActionListener(app);

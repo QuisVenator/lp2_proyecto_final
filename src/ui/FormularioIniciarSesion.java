@@ -17,17 +17,17 @@ public final class FormularioIniciarSesion extends JPanel {
     public FormularioIniciarSesion(App app) {
         this.app = app;
         //crear elementos
-        iniciarSesion = new JButton("Iniciar Sesión");
+        iniciarSesion = new JButton(app.getLanguage().getString("iniciarSesion"));
         iniciarSesion.addActionListener(e->intentarLogin());
-        cuentaLabel = new JLabel("Nro. Cuenta: ");
+        cuentaLabel = new JLabel(app.getLanguage().getString("nroCuenta"));
         cuentaLabel.setPreferredSize(new Dimension(100, 20));
-        pinLabel = new JLabel("PIN: ");
+        pinLabel = new JLabel(app.getLanguage().getString("pin"));
         pinLabel.setPreferredSize(new Dimension(100, 20));
         cuentaText = new JTextField(20);
         cuentaText.setPreferredSize(new Dimension(150, 20));
         pinText = new JPasswordField(20);
         pinText.setPreferredSize(new Dimension(150, 20));
-        titulo = new JLabel("Iniciar Sesion");
+        titulo = new JLabel(app.getLanguage().getString("iniciarSesion"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
         
         //preparar lineas
