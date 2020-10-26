@@ -36,7 +36,7 @@ public class App implements ActionListener {
     
     public ResourceBundle getLanguage() {
         if(languages == null) {
-            languages = ListResourceBundle.getBundle("language"); 
+            languages = ListResourceBundle.getBundle("language", Locale.ENGLISH); 
         }
         
         return languages;
@@ -51,13 +51,13 @@ public class App implements ActionListener {
                 outer.getHeader().setHeader(HeaderGui.HEADER_VACIO);
                 break;
             case FORMULARIO_PAGAR_SERVICIO:
-                outer.mostrarContenido(new FormularioPagarServicio());
+                outer.mostrarContenido(new FormularioPagarServicio(this));
                 break;
             case FORMULARIO_TRANSFERENCIA:
                 outer.mostrarContenido(new FormularioTransferencia(this));
                 break;
             case GUI_SALDO:
-                outer.mostrarContenido(new GuiSaldo());
+                outer.mostrarContenido(new GuiSaldo(this));
                 break;
             case FORMULARIO_DEPOSITO:
                 outer.mostrarContenido(new FormularioDeposito(this));

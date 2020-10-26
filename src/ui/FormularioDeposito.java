@@ -16,16 +16,16 @@ public final class FormularioDeposito extends JPanel {
     public FormularioDeposito(App app) {
         this.app = app;
         //crear elementos
-        depositar = new JButton("Depósito");
-        cuentaLabel = new JLabel("Nro. Cuenta: ");
+        depositar = new JButton(app.getLanguage().getString("deposito"));
+        cuentaLabel = new JLabel(app.getLanguage().getString("nroCuenta"));
         cuentaLabel.setPreferredSize(new Dimension(100, 20));
-        montoLabel = new JLabel("Monto: ");
+        montoLabel = new JLabel(app.getLanguage().getString("monto"));
         montoLabel.setPreferredSize(new Dimension(100, 20));
         cuentaText = new JTextField(20);
         cuentaText.setPreferredSize(new Dimension(150, 20));
         montoText = new JTextField(20);
         montoText.setPreferredSize(new Dimension(150, 20));
-        titulo = new JLabel("Hacer Depósito");
+        titulo = new JLabel(app.getLanguage().getString("hacerDeposito"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
         
         //preparar lineas

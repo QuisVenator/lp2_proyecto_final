@@ -17,12 +17,12 @@ public final class FormularioTransferencia extends JPanel {
     public FormularioTransferencia(App app) {
         this.app = app;
         //crear elementos
-        efectuarTransferencia = new JButton("Efectuar Transferencia");
-        cuentaLabel = new JLabel("Nro. Cuenta: ");
+        efectuarTransferencia = new JButton(app.getLanguage().getString("efectuarTransferencia"));
+        cuentaLabel = new JLabel(app.getLanguage().getString("nroCuenta"));
         cuentaLabel.setPreferredSize(new Dimension(100, 20));
-        montoLabel = new JLabel("Monto: ");
+        montoLabel = new JLabel(app.getLanguage().getString("monto"));
         montoLabel.setPreferredSize(new Dimension(100, 20));
-        pinLabel = new JLabel("PIN Transferencia: ");
+        pinLabel = new JLabel(app.getLanguage().getString("pinTransferencia"));
         pinLabel.setPreferredSize(new Dimension(100, 20));
         cuentaText = new JTextField(20);
         cuentaText.setPreferredSize(new Dimension(150, 20));
@@ -30,7 +30,7 @@ public final class FormularioTransferencia extends JPanel {
         montoText.setPreferredSize(new Dimension(150, 20));
         pinText = new JPasswordField(20);
         pinText.setPreferredSize(new Dimension(150, 20));
-        titulo = new JLabel("Transferencia");
+        titulo = new JLabel(app.getLanguage().getString("transferencia"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
         
         //preparar lineas

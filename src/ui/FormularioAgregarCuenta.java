@@ -16,20 +16,20 @@ public final class FormularioAgregarCuenta extends JPanel {
     public FormularioAgregarCuenta(App app) {
         this.app = app;
         //crear elementos
-        agregarBtn = new JButton("Agregar");
-        ciLabel = new JLabel("Documento: ");
+        agregarBtn = new JButton(app.getLanguage().getString("agregar"));
+        ciLabel = new JLabel(app.getLanguage().getString("documento"));
         ciLabel.setPreferredSize(new Dimension(100, 20));
-        apellidoLabel = new JLabel("Apellido: ");
+        apellidoLabel = new JLabel(app.getLanguage().getString("apellido"));
         apellidoLabel.setPreferredSize(new Dimension(100, 20));
-        telLabel = new JLabel("Teléfono: ");
+        telLabel = new JLabel(app.getLanguage().getString("telefono"));
         telLabel.setPreferredSize(new Dimension(100, 20));
-        correoLabel = new JLabel("Correo: ");
+        correoLabel = new JLabel(app.getLanguage().getString("correo"));
         correoLabel.setPreferredSize(new Dimension(100, 20));
-        direccionLabel = new JLabel("Dirección: ");
+        direccionLabel = new JLabel(app.getLanguage().getString("direccion"));
         direccionLabel.setPreferredSize(new Dimension(100, 20));
-        accesoLabel = new JLabel("Acceso: ");
+        accesoLabel = new JLabel(app.getLanguage().getString("acceso"));
         accesoLabel.setPreferredSize(new Dimension(100, 20));
-        nombreLabel = new JLabel("Nombre: ");
+        nombreLabel = new JLabel(app.getLanguage().getString("nombre"));
         nombreLabel.setPreferredSize(new Dimension(100, 20));
         ciText = new JTextField(20);
         ciText.setPreferredSize(new Dimension(150, 20));
@@ -45,7 +45,7 @@ public final class FormularioAgregarCuenta extends JPanel {
         accesoText.setPreferredSize(new Dimension(150, 20));
         nombreText = new JTextField(20);
         nombreText.setPreferredSize(new Dimension(150, 20));
-        titulo = new JLabel("Agregar Cuenta");
+        titulo = new JLabel(app.getLanguage().getString("agregarCuenta"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
         
         //preparar lineas

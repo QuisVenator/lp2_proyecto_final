@@ -16,12 +16,12 @@ public final class FormularioDesbloquearCuenta extends JPanel {
     public FormularioDesbloquearCuenta(App app) {
         this.app = app;
         //crear elementos
-        desbloquarBtn = new JButton("Desbloquar");
-        cuentaLabel = new JLabel("Nro. Cuenta: ");
+        desbloquarBtn = new JButton(app.getLanguage().getString("desbloquear"));
+        cuentaLabel = new JLabel(app.getLanguage().getString("nroCuenta"));
         cuentaLabel.setPreferredSize(new Dimension(100, 20));
         cuentaText = new JTextField(20);
         cuentaText.setPreferredSize(new Dimension(150, 20));
-        titulo = new JLabel("Desbloquar Cuenta");
+        titulo = new JLabel(app.getLanguage().getString("desbloquearCuenta"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
         
         //preparar lineas

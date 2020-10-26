@@ -17,7 +17,7 @@ public final class OuterGui extends JFrame {
     private final HeaderGui header;
     private App app;
     public OuterGui(App app) {
-        super("Simulación web banking");
+        super(app.getLanguage().getString("tituloVentana"));
         this.app = app;
         this.setSize(1600, 900);
         contentPanel = new JPanel();

@@ -16,16 +16,16 @@ public final class FormularioAgregarServicio extends JPanel {
     public FormularioAgregarServicio(App app) {
         this.app = app;
         //crear elementos
-        agregarBtn = new JButton("Agregar");
-        cuentaLabel = new JLabel("Nro. Cuenta: ");
+        agregarBtn = new JButton(app.getLanguage().getString("agregar"));
+        cuentaLabel = new JLabel(app.getLanguage().getString("nroCuenta"));
         cuentaLabel.setPreferredSize(new Dimension(100, 20));
-        montoLabel = new JLabel("Monto: ");
+        montoLabel = new JLabel(app.getLanguage().getString("monto"));
         montoLabel.setPreferredSize(new Dimension(100, 20));
-        nombreLabel = new JLabel("Nombre: ");
+        nombreLabel = new JLabel(app.getLanguage().getString("nombreServicio"));
         nombreLabel.setPreferredSize(new Dimension(100, 20));
-        descripcionLabel = new JLabel("Descripción: ");
+        descripcionLabel = new JLabel(app.getLanguage().getString("descripcion"));
         descripcionLabel.setPreferredSize(new Dimension(100, 20));
-        iconoLabel = new JLabel("Icono: ");
+        iconoLabel = new JLabel(app.getLanguage().getString("icono"));
         iconoLabel.setPreferredSize(new Dimension(100, 20));
         cuentaText = new JTextField(20);
         cuentaText.setPreferredSize(new Dimension(150, 20));
@@ -37,7 +37,7 @@ public final class FormularioAgregarServicio extends JPanel {
         descripcionText.setPreferredSize(new Dimension(150, 20));
         iconoText = new JTextField(20);
         iconoText.setPreferredSize(new Dimension(150, 20));
-        titulo = new JLabel("Agregar Servicio");
+        titulo = new JLabel(app.getLanguage().getString("agregarServicio"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
         
         //preparar lineas

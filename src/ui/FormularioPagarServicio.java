@@ -15,7 +15,11 @@ public final class FormularioPagarServicio extends JPanel {
     private final String[] path = {"servicio_ejemplo1_32.png", "servicio_ejemplo2_32.png", "servicio_ejemplo3_32.png"};
     private final String[] nombre = {"Servicio 1", "Servicio 2", "Servicio 3"};
     private final String[] monto = {"100.000", "20.000", "7.000"};
-    public FormularioPagarServicio() {
+    
+    private final App app;
+    
+    public FormularioPagarServicio(App app) {
+        this.app = app;
         
         for(int i = 0; i < servicioBtn.length; i++) {
             servicioBtn[i] = new JButton(String.format("%10s%-10s - %-15s", "", monto[i], nombre[i]));
@@ -34,7 +38,7 @@ public final class FormularioPagarServicio extends JPanel {
             }
             lineas[i].setBackground(Color.decode("#f8f8ff"));
         }
-        JLabel titulo = new JLabel("Servicios disponibles");
+        JLabel titulo = new JLabel(app.getLanguage().getString("serviciosDisponibles"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 32));
         titulo.setPreferredSize(new Dimension(350, 100));
         lineas[1].add(titulo);
