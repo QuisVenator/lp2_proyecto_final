@@ -1,3 +1,5 @@
+package idiomas;
+
 
 import java.util.ListResourceBundle;
 
