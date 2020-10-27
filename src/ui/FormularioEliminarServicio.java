@@ -7,7 +7,7 @@ import javax.swing.*;
  *
  * @author Manuel René Pauls Toews
  */
-public final class FormularioEliminarServicio extends JPanel {
+public final class FormularioEliminarServicio extends InnerGui {
     private final JButton eliminarBtn;
     private final JTextField codigoText;
     private final JLabel codigoLabel, titulo;
@@ -42,5 +42,12 @@ public final class FormularioEliminarServicio extends JPanel {
         //agregar lineas a ventana
         for(int i = 0; i < lineas.length; i++) 
             this.add(lineas[i]);
+    }
+
+    @Override
+    public void languageReload() {
+        eliminarBtn.setText(app.getLanguage().getString("eliminarServicio"));
+        codigoLabel.setText(app.getLanguage().getString("nombreServicio"));
+        titulo.setText(app.getLanguage().getString("eliminarServicio"));
     }
 }

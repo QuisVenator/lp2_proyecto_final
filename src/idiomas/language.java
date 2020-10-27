@@ -50,7 +50,8 @@ public class language extends ListResourceBundle {
         {"tituloVentana",                   "Simulación Web Banking"},
         {"bienvenidoNombre",                "Bienvenido {0}"},
         {"saldo",                           "Saldo"},
-        {"queDeseaHacer",                   "Qué desea hacer?"}
+        {"queDeseaHacer",                   "Qué desea hacer?"},
+        {"idiomaNombre",                    "Español"}
     };
     @Override
     protected Object[][] getContents() {

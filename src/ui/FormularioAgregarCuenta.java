@@ -7,7 +7,7 @@ import javax.swing.*;
  *
  * @author Manuel René Pauls Toews
  */
-public final class FormularioAgregarCuenta extends JPanel {
+public final class FormularioAgregarCuenta extends InnerGui {
     private final JButton agregarBtn;
     private final JTextField ciText, apellidoText, correoText, telText, direccionText, accesoText, nombreText;
     private final JLabel ciLabel, apellidoLabel, titulo, correoLabel, telLabel, direccionLabel, accesoLabel, nombreLabel;
@@ -78,5 +78,18 @@ public final class FormularioAgregarCuenta extends JPanel {
         //agregar lineas a ventana
         for(int i = 0; i < lineas.length; i++) 
             this.add(lineas[i]);
+    }
+
+    @Override
+    public void languageReload() {
+        agregarBtn.setText(app.getLanguage().getString("agregar"));
+        ciLabel.setText(app.getLanguage().getString("documento"));
+        apellidoLabel.setText(app.getLanguage().getString("apellido"));
+        telLabel.setText(app.getLanguage().getString("telefono"));
+        correoLabel.setText(app.getLanguage().getString("correo"));
+        direccionLabel.setText(app.getLanguage().getString("direccion"));
+        accesoLabel.setText(app.getLanguage().getString("acceso"));
+        nombreLabel.setText(app.getLanguage().getString("nombre"));
+        titulo.setText(app.getLanguage().getString("agregarCuenta"));
     }
 }

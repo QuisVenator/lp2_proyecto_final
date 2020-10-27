@@ -9,7 +9,7 @@ import javax.swing.*;
  *
  * @author Manuel René Pauls Toews
  */
-public final class PaginaInicialCliente extends JPanel {
+public final class PaginaInicialCliente extends InnerGui {
     private final JPanel[] lineas = new JPanel[8];
     private String nombre = "Jane Doe";
     private JLabel titulo, titulo2;
@@ -68,5 +68,15 @@ public final class PaginaInicialCliente extends JPanel {
         //agregar lineas a ventana
         for(int i = 0; i < lineas.length; i++) 
             this.add(lineas[i]);
+    }
+
+    @Override
+    public void languageReload() {
+        titulo.setText(MessageFormat.format(app.getLanguage().getString("bienvenidoNombre"), "NOMBRE"));
+        informeBtn.setText(app.getLanguage().getString("informe"));
+        titulo2.setText(app.getLanguage().getString("queDeseaHacer"));
+        pagarServicioBtn.setText(app.getLanguage().getString("pagarServicio"));
+        saldoBtn.setText(app.getLanguage().getString("saldo"));
+        transferenciaBtn.setText(app.getLanguage().getString("transferencia"));
     }
 }

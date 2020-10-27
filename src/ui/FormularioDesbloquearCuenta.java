@@ -7,7 +7,7 @@ import javax.swing.*;
  *
  * @author Manuel René Pauls Toews
  */
-public final class FormularioDesbloquearCuenta extends JPanel {
+public final class FormularioDesbloquearCuenta extends InnerGui {
     private final JButton desbloquarBtn;
     private final JTextField cuentaText;
     private final JLabel cuentaLabel, titulo;
@@ -42,5 +42,12 @@ public final class FormularioDesbloquearCuenta extends JPanel {
         //agregar lineas a ventana
         for(int i = 0; i < lineas.length; i++) 
             this.add(lineas[i]);
+    }
+
+    @Override
+    public void languageReload() {
+        desbloquarBtn.setText(app.getLanguage().getString("desbloquear"));
+        cuentaLabel.setText(app.getLanguage().getString("nroCuenta"));
+        titulo.setText(app.getLanguage().getString("desbloquearCuenta"));
     }
 }

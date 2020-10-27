@@ -7,7 +7,7 @@ import javax.swing.*;
  *
  * @author Manuel René Pauls Toews
  */
-public final class FormularioTransferencia extends JPanel {
+public final class FormularioTransferencia extends InnerGui {
     private final JButton efectuarTransferencia;
     private final JTextField cuentaText, montoText;
     private final JPasswordField pinText;
@@ -55,5 +55,14 @@ public final class FormularioTransferencia extends JPanel {
         //agregar lineas a ventana
         for(int i = 0; i < lineas.length; i++) 
             this.add(lineas[i]);
+    }
+
+    @Override
+    public void languageReload() {
+        efectuarTransferencia.setText(app.getLanguage().getString("efectuarTransferencia"));
+        cuentaLabel.setText(app.getLanguage().getString("nroCuenta"));
+        montoLabel.setText(app.getLanguage().getString("monto"));
+        pinLabel.setText(app.getLanguage().getString("pinTransferencia"));
+        titulo.setText(app.getLanguage().getString("transferencia"));
     }
 }

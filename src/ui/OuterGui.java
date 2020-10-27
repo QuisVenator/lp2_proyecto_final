@@ -12,7 +12,7 @@ import javax.swing.*;
  */
 public final class OuterGui extends JFrame {
     private final JPanel contentPanel;
-    private JPanel innerGui;
+    private InnerGui innerGui;
     private final FooterGui footer;
     private final HeaderGui header;
     private App app;
@@ -25,7 +25,7 @@ public final class OuterGui extends JFrame {
         header = new HeaderGui(app);
         footer = new FooterGui(app);
         
-        innerGui = new JPanel();
+        innerGui = new InnerGui();
         innerGui.setLayout(new BoxLayout(innerGui, BoxLayout.Y_AXIS));
         innerGui.setBackground(Color.decode("#f8f9fa"));
         
@@ -45,13 +45,14 @@ public final class OuterGui extends JFrame {
         this.setVisible(true);
     }
     
-    public void mostrarContenido(JPanel panel) {
-        if(panel == null) return;
-        
+    public void mostrarContenido(InnerGui panel) {
         if(innerGui != null)
             contentPanel.remove(innerGui);
-        innerGui = panel;
-        contentPanel.add(innerGui, BorderLayout.CENTER);
+        
+        if(panel != null) {
+            innerGui = panel;
+            contentPanel.add(innerGui, BorderLayout.CENTER);
+        }
         this.revalidate();
         this.repaint();
     }
@@ -59,7 +60,10 @@ public final class OuterGui extends JFrame {
     public HeaderGui getHeader() {
         return header;
     }
-    public void mostrarHeader(JPanel panel) {
-        
+    
+    public void changeLanguage() {
+        footer.languageReload();
+        header.languageReload();
+        innerGui.languageReload();
     }
 }

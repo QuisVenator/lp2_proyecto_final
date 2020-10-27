@@ -26,7 +26,7 @@ public class language_en extends ListResourceBundle {
         {"direccion",                       "Address"},
         {"monto",                           "Amount"},
         {"nombreServicio",                  "Name"},
-        {"iccono",                          "Icon"},
+        {"icono",                           "Icon"},
         {"descripcion",                     "Description"},
         {"deposito",                        "Deposit"},
         {"hacerDeposito",                   "Make Deposit"},
@@ -50,7 +50,8 @@ public class language_en extends ListResourceBundle {
         {"tituloVentana",                   "Web Banking Simulation"},
         {"bienvenidoNombre",                "Welcome {0}"},
         {"saldo",                           "Balance"},
-        {"queDeseaHacer",                   "What are you looking for?"}
+        {"queDeseaHacer",                   "What are you looking for?"},
+        {"idiomaNombre",                    "English"}
     };
     @Override
     protected Object[][] getContents() {
