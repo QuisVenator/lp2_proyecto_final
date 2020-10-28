@@ -40,7 +40,7 @@ public class language_de extends ListResourceBundle {
         {"efectuarTransferencia",           "Überweisung tätigen"},
         {"pinTransferencia",                "Überweisungs PIN"},
         {"transferencia",                   "Überweisung"},
-        {"saldoActual",                     "Aktuelles Guthaben"},
+        {"saldoActual",                     "Guthaben"},
         {"informacionCuenta",               "Kontoübersicht"},
         {"titularNombre",                   "Eigentümer"},
         {"cerrarSesion",                    "Abmelden"},
