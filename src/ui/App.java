@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.ListResourceBundle;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import logic.Sesion;
 import logic.excepciones.AuthentificationException;
@@ -26,9 +27,12 @@ public class App implements ActionListener {
     public static final String FORMULARIO_DESBLOQUEAR_CUENTA = "desbloquear cuenta";
     public static final String GUI_SALDO = "gui saldo";
     public static final String CERRAR_SESION = "cerrar sesion";
+    public static final String CAMBIAR_LENGUAJE = "cambiar lenguaje";
     
     private OuterGui outer;
     private ResourceBundle languages;
+    private String[] idiomasDisponibles = {"Español", "English", "Deutsch"};
+    private String[] languageTag = {"es", "en", "de"};
     
     public App() {
         outer = new OuterGui(this);
@@ -36,10 +40,16 @@ public class App implements ActionListener {
     
     public ResourceBundle getLanguage() {
         if(languages == null) {
-            languages = ListResourceBundle.getBundle("language"); 
+            languages = ListResourceBundle.getBundle("idiomas.language");
         }
         
         return languages;
+    }
+    private void setLanguage(int languageTagIndex) {
+        languages = ListResourceBundle.getBundle("idiomas.language", Locale.forLanguageTag(languageTag[languageTagIndex]));
+    }
+    public String[] getIdiomasDisponibles() {
+        return idiomasDisponibles;
     }
 
     @Override
@@ -51,13 +61,13 @@ public class App implements ActionListener {
                 outer.getHeader().setHeader(HeaderGui.HEADER_VACIO);
                 break;
             case FORMULARIO_PAGAR_SERVICIO:
-                outer.mostrarContenido(new FormularioPagarServicio());
+                outer.mostrarContenido(new FormularioPagarServicio(this));
                 break;
             case FORMULARIO_TRANSFERENCIA:
                 outer.mostrarContenido(new FormularioTransferencia(this));
                 break;
             case GUI_SALDO:
-                outer.mostrarContenido(new GuiSaldo());
+                outer.mostrarContenido(new GuiSaldo(this));
                 break;
             case FORMULARIO_DEPOSITO:
                 outer.mostrarContenido(new FormularioDeposito(this));
@@ -77,6 +87,12 @@ public class App implements ActionListener {
             case FORMULARIO_DESBLOQUEAR_CUENTA:
                 outer.mostrarContenido(new FormularioDesbloquearCuenta(this));
                 break;
+            case CAMBIAR_LENGUAJE:
+                if(!languages.getString("idiomaNombre").equals(((JComboBox)e.getSource()).getSelectedItem())) {
+                    setLanguage(((JComboBox)e.getSource()).getSelectedIndex());
+                    outer.changeLanguage();
+                }
+                break;
         }
     }
 
@@ -85,7 +101,7 @@ public class App implements ActionListener {
             Sesion.iniciarSesion(password, Integer.parseInt(cuenta));
             if(cuenta.equals("1")) {
                 outer.getHeader().setHeader(HeaderGui.HEADER_ADMIN);
-                outer.mostrarContenido(new JPanel());
+                outer.mostrarContenido(null);
             } else {
                 outer.mostrarContenido(new PaginaInicialCliente(this));
                 outer.getHeader().setHeader(HeaderGui.HEADER_CLIENTE);

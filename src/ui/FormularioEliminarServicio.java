@@ -7,7 +7,7 @@ import javax.swing.*;
  *
  * @author Manuel René Pauls Toews
  */
-public final class FormularioEliminarServicio extends JPanel {
+public final class FormularioEliminarServicio extends InnerGui {
     private final JButton eliminarBtn;
     private final JTextField codigoText;
     private final JLabel codigoLabel, titulo;
@@ -16,12 +16,12 @@ public final class FormularioEliminarServicio extends JPanel {
     public FormularioEliminarServicio(App app) {
         this.app = app;
         //crear elementos
-        eliminarBtn = new JButton("Eliminar Servicio");
-        codigoLabel = new JLabel("Nombre Servicio: ");
+        eliminarBtn = new JButton(app.getLanguage().getString("eliminarServicio"));
+        codigoLabel = new JLabel(app.getLanguage().getString("nombreServicio"));
         codigoLabel.setPreferredSize(new Dimension(100, 20));
         codigoText = new JTextField(20);
         codigoText.setPreferredSize(new Dimension(150, 20));
-        titulo = new JLabel("Eliminar Servicio");
+        titulo = new JLabel(app.getLanguage().getString("eliminarServicio"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
         
         //preparar lineas
@@ -42,5 +42,12 @@ public final class FormularioEliminarServicio extends JPanel {
         //agregar lineas a ventana
         for(int i = 0; i < lineas.length; i++) 
             this.add(lineas[i]);
+    }
+
+    @Override
+    public void languageReload() {
+        eliminarBtn.setText(app.getLanguage().getString("eliminarServicio"));
+        codigoLabel.setText(app.getLanguage().getString("nombreServicio"));
+        titulo.setText(app.getLanguage().getString("eliminarServicio"));
     }
 }

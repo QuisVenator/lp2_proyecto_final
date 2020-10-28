@@ -8,10 +8,14 @@ import javax.swing.*;
  *
  * @author Manuel René Pauls Toews
  */
-public class GuiSaldo extends JPanel {
-    JPanel[] lineas = new JPanel[6];
+public class GuiSaldo extends InnerGui {
+    private JPanel[] lineas = new JPanel[6];
+    private final App app;
+    private final JLabel titulo, titularLabel, nrCuentaLabel, saldoLabel;
     
-    public GuiSaldo() {
+    public GuiSaldo(App app) {
+        this.app = app;
+        
         //preparar lineas
         for(int i = 0; i < lineas.length; i++) {
             lineas[i] = new JPanel();
@@ -21,22 +25,22 @@ public class GuiSaldo extends JPanel {
             lineas[i].setMaximumSize(new Dimension(Integer.MAX_VALUE, 80));
         
         //crear elementos
-        JLabel titulo = new JLabel("Información de Cuenta");
+        titulo = new JLabel(app.getLanguage().getString("informacionCuenta"));
         titulo.setPreferredSize(new Dimension(350, 80));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 28));
-        JLabel titularLabel = new JLabel("Nombre:");
+        titularLabel = new JLabel(app.getLanguage().getString("titularNombre"));
         titularLabel.setPreferredSize(new Dimension(200, 30));
         titularLabel.setFont(new Font("Courier New", Font.PLAIN, 20));
         JLabel titularText = new JLabel("Nombre Titular");
         titularText.setPreferredSize(new Dimension(200, 30));
         titularText.setFont(new Font("Courier New", Font.PLAIN, 20));
-        JLabel nrCuentaLabel = new JLabel("Número Cuenta:");
+        nrCuentaLabel = new JLabel(app.getLanguage().getString("nroCuenta"));
         nrCuentaLabel.setPreferredSize(new Dimension(200, 30));
         nrCuentaLabel.setFont(new Font("Courier New", Font.PLAIN, 20));
         JLabel nrCuentaText = new JLabel("133742069");
         nrCuentaText.setPreferredSize(new Dimension(200, 30));
         nrCuentaText.setFont(new Font("Courier New", Font.PLAIN, 20));
-        JLabel saldoLabel = new JLabel("Saldo Actual:");
+        saldoLabel = new JLabel(app.getLanguage().getString("saldoActual"));
         saldoLabel.setPreferredSize(new Dimension(200, 30));
         saldoLabel.setFont(new Font("Courier New", Font.PLAIN, 20));
         JLabel saldoText = new JLabel("5.000.000");
@@ -55,5 +59,13 @@ public class GuiSaldo extends JPanel {
         
         for(int i = 0; i < lineas.length; i++) 
             this.add(lineas[i]);
+    }
+
+    @Override
+    public void languageReload() {
+        titulo.setText(app.getLanguage().getString("informacionCuenta"));
+        titularLabel.setText(app.getLanguage().getString("titularNombre"));
+        nrCuentaLabel.setText(app.getLanguage().getString("nroCuenta"));
+        saldoLabel.setText(app.getLanguage().getString("saldoActual"));
     }
 }

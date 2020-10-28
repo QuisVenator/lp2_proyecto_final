@@ -7,7 +7,7 @@ import javax.swing.*;
  *
  * @author Manuel René Pauls Toews
  */
-public final class FormularioEliminarCuenta extends JPanel {
+public final class FormularioEliminarCuenta extends InnerGui {
     private final JButton eliminarBtn;
     private final JTextField cuentaText;
     private final JLabel cuentaLabel, titulo;
@@ -16,12 +16,12 @@ public final class FormularioEliminarCuenta extends JPanel {
     public FormularioEliminarCuenta(App app) {
         this.app = app;
         //crear elementos
-        eliminarBtn = new JButton("Eliminar");
-        cuentaLabel = new JLabel("Nro. Cuenta: ");
+        eliminarBtn = new JButton(app.getLanguage().getString("eliminar"));
+        cuentaLabel = new JLabel(app.getLanguage().getString("nroCuenta"));
         cuentaLabel.setPreferredSize(new Dimension(100, 20));
         cuentaText = new JTextField(20);
         cuentaText.setPreferredSize(new Dimension(150, 20));
-        titulo = new JLabel("Eliminar Cuenta");
+        titulo = new JLabel(app.getLanguage().getString("eliminarCuenta"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
         
         //preparar lineas
@@ -42,5 +42,12 @@ public final class FormularioEliminarCuenta extends JPanel {
         //agregar lineas a ventana
         for(int i = 0; i < lineas.length; i++) 
             this.add(lineas[i]);
+    }
+
+    @Override
+    public void languageReload() {
+        eliminarBtn.setText(app.getLanguage().getString("eliminar"));
+        cuentaLabel.setText(app.getLanguage().getString("nroCuenta"));
+        titulo.setText(app.getLanguage().getString("eliminarCuenta"));
     }
 }

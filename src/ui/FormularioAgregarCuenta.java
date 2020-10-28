@@ -7,7 +7,7 @@ import javax.swing.*;
  *
  * @author Manuel René Pauls Toews
  */
-public final class FormularioAgregarCuenta extends JPanel {
+public final class FormularioAgregarCuenta extends InnerGui {
     private final JButton agregarBtn;
     private final JTextField ciText, apellidoText, correoText, telText, direccionText, accesoText, nombreText;
     private final JLabel ciLabel, apellidoLabel, titulo, correoLabel, telLabel, direccionLabel, accesoLabel, nombreLabel;
@@ -16,20 +16,20 @@ public final class FormularioAgregarCuenta extends JPanel {
     public FormularioAgregarCuenta(App app) {
         this.app = app;
         //crear elementos
-        agregarBtn = new JButton("Agregar");
-        ciLabel = new JLabel("Documento: ");
+        agregarBtn = new JButton(app.getLanguage().getString("agregar"));
+        ciLabel = new JLabel(app.getLanguage().getString("documento"));
         ciLabel.setPreferredSize(new Dimension(100, 20));
-        apellidoLabel = new JLabel("Apellido: ");
+        apellidoLabel = new JLabel(app.getLanguage().getString("apellido"));
         apellidoLabel.setPreferredSize(new Dimension(100, 20));
-        telLabel = new JLabel("Teléfono: ");
+        telLabel = new JLabel(app.getLanguage().getString("telefono"));
         telLabel.setPreferredSize(new Dimension(100, 20));
-        correoLabel = new JLabel("Correo: ");
+        correoLabel = new JLabel(app.getLanguage().getString("correo"));
         correoLabel.setPreferredSize(new Dimension(100, 20));
-        direccionLabel = new JLabel("Dirección: ");
+        direccionLabel = new JLabel(app.getLanguage().getString("direccion"));
         direccionLabel.setPreferredSize(new Dimension(100, 20));
-        accesoLabel = new JLabel("Acceso: ");
+        accesoLabel = new JLabel(app.getLanguage().getString("acceso"));
         accesoLabel.setPreferredSize(new Dimension(100, 20));
-        nombreLabel = new JLabel("Nombre: ");
+        nombreLabel = new JLabel(app.getLanguage().getString("nombre"));
         nombreLabel.setPreferredSize(new Dimension(100, 20));
         ciText = new JTextField(20);
         ciText.setPreferredSize(new Dimension(150, 20));
@@ -45,7 +45,7 @@ public final class FormularioAgregarCuenta extends JPanel {
         accesoText.setPreferredSize(new Dimension(150, 20));
         nombreText = new JTextField(20);
         nombreText.setPreferredSize(new Dimension(150, 20));
-        titulo = new JLabel("Agregar Cuenta");
+        titulo = new JLabel(app.getLanguage().getString("agregarCuenta"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
         
         //preparar lineas
@@ -78,5 +78,18 @@ public final class FormularioAgregarCuenta extends JPanel {
         //agregar lineas a ventana
         for(int i = 0; i < lineas.length; i++) 
             this.add(lineas[i]);
+    }
+
+    @Override
+    public void languageReload() {
+        agregarBtn.setText(app.getLanguage().getString("agregar"));
+        ciLabel.setText(app.getLanguage().getString("documento"));
+        apellidoLabel.setText(app.getLanguage().getString("apellido"));
+        telLabel.setText(app.getLanguage().getString("telefono"));
+        correoLabel.setText(app.getLanguage().getString("correo"));
+        direccionLabel.setText(app.getLanguage().getString("direccion"));
+        accesoLabel.setText(app.getLanguage().getString("acceso"));
+        nombreLabel.setText(app.getLanguage().getString("nombre"));
+        titulo.setText(app.getLanguage().getString("agregarCuenta"));
     }
 }

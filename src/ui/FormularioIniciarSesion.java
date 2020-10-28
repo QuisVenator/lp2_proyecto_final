@@ -7,7 +7,7 @@ import javax.swing.*;
  *
  * @author Manuel René Pauls Toews
  */
-public final class FormularioIniciarSesion extends JPanel {
+public final class FormularioIniciarSesion extends InnerGui {
     private final JButton iniciarSesion;
     private final JTextField cuentaText;
     private final JPasswordField pinText;
@@ -54,5 +54,13 @@ public final class FormularioIniciarSesion extends JPanel {
     
     private void intentarLogin() {
         app.intentarLogin(cuentaText.getText(), new String(pinText.getPassword()));
+    }
+
+    @Override
+    public void languageReload() {
+        iniciarSesion.setText(app.getLanguage().getString("iniciarSesion"));
+        cuentaLabel.setText(app.getLanguage().getString("nroCuenta"));
+        pinLabel.setText(app.getLanguage().getString("pin"));
+        titulo.setText(app.getLanguage().getString("iniciarSesion"));
     }
 }
