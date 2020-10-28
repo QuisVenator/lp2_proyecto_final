@@ -15,5 +15,4 @@ public abstract class DBObject {
         return sesion;
     }
     public abstract int guardar();
-    }
 }
