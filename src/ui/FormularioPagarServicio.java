@@ -1,50 +1,92 @@
 
 package ui;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+import logic.Servicio;
+import logic.SesionCliente;
+import logic.excepciones.SesionExpiradaException;
 
 /**
  *
  * @author Manuel René Pauls Toews
  */
 public final class FormularioPagarServicio extends InnerGui {   
-    private final JPanel[] lineas = new JPanel[6];
-    private final JButton[] servicioBtn = new JButton[3];
+    private final List<JPanel> lineas = new LinkedList<>();
+    private final List<JButton> servicioBtn = new LinkedList<>();
+    private List<Servicio> serviciosDisponibles;
     private final String[] path = {"servicio_ejemplo1_32.png", "servicio_ejemplo2_32.png", "servicio_ejemplo3_32.png"};
     private final String[] nombre = {"Servicio 1", "Servicio 2", "Servicio 3"};
     private final String[] monto = {"100.000", "20.000", "7.000"};
-    private final JLabel titulo;
+    private JLabel titulo;
     
     private final App app;
     
     public FormularioPagarServicio(App app) {
         this.app = app;
         
-        for(int i = 0; i < servicioBtn.length; i++) {
-            servicioBtn[i] = new JButton(String.format("%10s%-10s - %-15s", "", monto[i], nombre[i]));
-            servicioBtn[i].setIcon(new ImageIcon("iconos/"+path[i]));
-            servicioBtn[i].setContentAreaFilled(false);
-            servicioBtn[i].setFont(new Font("Courier New", Font.PLAIN, 24));
-            servicioBtn[i].setHorizontalAlignment(SwingConstants.LEFT);
-            servicioBtn[i].setPreferredSize(new Dimension(600, 40));
+        try {
+            serviciosDisponibles = ((SesionCliente)app.sesion).obtenerListaServicio();
+        } catch (SesionExpiradaException ex) {
+            app.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, App.CERRAR_SESION));
+            return;
         }
+        
         //preparar lineas
-        for(int i = 0; i < lineas.length; i++) {
-            lineas[i] = new JPanel();
-            if(i > 1 && i <= nombre.length+1) {
-                //lineas[i].setLayout(new FlowLayout(FlowLayout.LEADING));
-                lineas[i].add(servicioBtn[i-2]);
-            }
-            lineas[i].setBackground(Color.decode("#f8f8ff"));
-        }
+        lineas.add(new JPanel());
+        lineas.get(0).setBackground(Color.decode("#f8f8ff"));
+        lineas.add(new JPanel());
+        lineas.get(1).setBackground(Color.decode("#f8f8ff"));
+        
         titulo = new JLabel(app.getLanguage().getString("serviciosDisponibles"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 32));
         titulo.setPreferredSize(new Dimension(350, 100));
-        lineas[1].add(titulo);
-        for(int i = 1; i < lineas.length-1; i++) 
-            lineas[i].setMaximumSize(new Dimension(1920, 80));
+        lineas.get(1).setBackground(Color.decode("#f8f8ff"));
+        lineas.get(1).setMaximumSize(new Dimension(1920, 80));
+        lineas.get(1).add(titulo);
+        
+        for(Servicio servicio : serviciosDisponibles) {
+            JButton btn = new JButton(String.format("%10s%-10s - %-15s", "", servicio.getMonto(), servicio.getNombre()));
+            btn.setIcon(new ImageIcon("iconos/"+servicio.getIconoPath()));
+            btn.setContentAreaFilled(false);
+            btn.setFont(new Font("Courier New", Font.PLAIN, 24));
+            btn.setHorizontalAlignment(SwingConstants.LEFT);
+            btn.setPreferredSize(new Dimension(600, 40));
+            btn.addActionListener((ActionEvent e) -> {
+                try {
+                    ((SesionCliente)app.sesion).pagarServicio(
+                            servicio, 
+                            servicio.getMonto(), 
+                            Mensaje.crearMensajeInput("pinTransferencia", "pinTransferencia")
+                    );
+                } catch (SesionExpiradaException ex) {
+                    app.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, App.CERRAR_SESION));
+                }
+            });
+            servicioBtn.add(btn);
+            
+            JPanel linea = new JPanel();
+            linea.add(btn);
+            linea.setBackground(Color.decode("#f8f8ff"));
+            linea.setMaximumSize(new Dimension(1920, 80));
+            lineas.add(linea);
+        }
+        JPanel espacioAbajo = new JPanel();
+        espacioAbajo.setBackground(Color.decode("#f8f8ff"));
+        lineas.add(espacioAbajo);
         
         //agregar lineas a ventana
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

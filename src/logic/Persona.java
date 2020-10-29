@@ -1,11 +1,16 @@
 
 package logic;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import ui.Mensaje;
+
 /**
  *
  * @author Manuel René Pauls Toews
  */
-public class Persona {
+public class Persona extends DBObject {
     private String nombre, apellido, correo, direccion, numeroTel;
     private int ci;
     
@@ -45,8 +50,25 @@ public class Persona {
     public void setNumTel(String numTel) {
         this.numeroTel = numTel;
     }
+    
+    @Override
     public int guardar() {
-        //TODO implementar parte de base de datos (ver table generada de prueba)
-        throw new UnsupportedOperationException("Not supported yet.");
+        ConexionDB dbc = getSesion().getConexion();
+        Connection conn = dbc.getConnection();
+        String queryString = "INSERT INTO Persona (nombre, apellido, correo, numeroTel, direccion, ci, nivAcceso) VALUES (?, ?, ?, ?, ?, ?, ?);";
+        try(PreparedStatement stmt = conn.prepareStatement(queryString)) {
+            stmt.setString(1, nombre);
+            stmt.setString(2, apellido);
+            stmt.setString(3, correo);
+            stmt.setString(4, numeroTel);
+            stmt.setString(5, direccion);
+            stmt.setInt(6, ci);
+            stmt.setInt(7, 0);
+            stmt.execute();
+            return 0;
+        } catch(SQLException e) {
+            Mensaje.crearMensajeError("dbErrorTitulo", "dbErrorMensaje");
+            return -1;
+        }
     }
 }

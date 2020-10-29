@@ -1,6 +1,7 @@
 
 package ui;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,5 +22,8 @@ public class Mensaje {
     public static int crearMensajeSino(String titulo, String mensaje) {
         JOptionPane.showConfirmDialog(null, app.getLanguage().getString(mensaje), app.getLanguage().getString(titulo), JOptionPane.YES_NO_OPTION);
         return 0;
+    }
+    public static String crearMensajeInput(String titulo, String mensaje) {   
+        return JOptionPane.showInputDialog(new JFrame(app.getLanguage().getString(titulo)),app.getLanguage().getString(mensaje));  
     }
 }

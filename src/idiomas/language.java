@@ -1,3 +1,4 @@
+
 package idiomas;
 
 
@@ -56,7 +57,13 @@ public class language extends ListResourceBundle {
         {"loginNoExitoso",                  "Iniciar sesión no posible"},
         {"loginErrorMessage",               "Cuenta no encontrada. Por favor verificar datos e intentar nuevamente."},
         {"dbErrorTitulo",                   "Error en base de datos"}, 
-        {"dbErrorMensaje",                  "Acción no pudo ser realizada. Verifique sus datos y pruebe de nuevo!"}
+        {"dbErrorMensaje",                  "Acción no pudo ser realizada. Verifique sus datos y pruebe de nuevo!"},
+        {"pinTransferenciaNoValido",        "Pin de transferencia no se pudo confirmar! Por favor reintentar."},
+        {"pinNoValidoTitulo",               "Pin incorrecto"},
+        {"saldoInsuficienteTitulo",         "Saldo Insuficiente"},
+        {"saldoInsuficiente",               "Saldo insuficiente para realizar la transaccion"},
+        {"servicioPagadoTitulo",            "Servicio Pagado"},
+        {"servicioPagado",                  "El servicio se ha pagado exitosamente!"}
     };
     @Override
     protected Object[][] getContents() {
