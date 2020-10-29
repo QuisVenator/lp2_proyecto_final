@@ -1,7 +1,11 @@
 
 package logic;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Random;
+import ui.Mensaje;
 
 /**
  *
@@ -45,6 +49,9 @@ public class Servicio extends DBObject {
     public void setIconoLoc(String location) {
         iconoPath = location;
     }
+    public String getIconoPath() {
+        return iconoPath;
+    }
     public double getMonto() {
         return monto;
     }
@@ -55,8 +62,21 @@ public class Servicio extends DBObject {
     
     @Override
     public int guardar() {
-        //TODO implementar parte de base de datos (ver table generada de prueba)
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ConexionDB dbc = getSesion().getConexion();
+        Connection conn = dbc.getConnection();
+        String queryString = "INSERT INTO Servicio (nombre, descripcion, iconoPath, monto, cuenta) VALUES (?,?,?,?);";
+        try(PreparedStatement stmt = conn.prepareStatement(queryString)) {
+            stmt.setString(1, nombre);
+            stmt.setString(2, descripcion);
+            stmt.setString(3, iconoPath);
+            stmt.setDouble(4, monto);
+            stmt.setDouble(5, cuentaNr);
+            stmt.execute();
+            return 0;
+        } catch(SQLException e) {
+            Mensaje.crearMensajeError("dbErrorTitulo", "dbErrorMensaje");
+            return -1;
+        }
     }
 
 }

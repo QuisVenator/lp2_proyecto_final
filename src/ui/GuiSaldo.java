@@ -2,13 +2,18 @@
 package ui;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
+import logic.SesionCliente;
+import logic.excepciones.SesionExpiradaException;
 
 /**
  *
  * @author Manuel René Pauls Toews
  */
-public class GuiSaldo extends InnerGui {
+public final class GuiSaldo extends InnerGui {
     private JPanel[] lineas = new JPanel[6];
     private final App app;
     private final JLabel titulo, titularLabel, nrCuentaLabel, saldoLabel;
@@ -31,19 +36,27 @@ public class GuiSaldo extends InnerGui {
         titularLabel = new JLabel(app.getLanguage().getString("titularNombre"));
         titularLabel.setPreferredSize(new Dimension(200, 30));
         titularLabel.setFont(new Font("Courier New", Font.PLAIN, 20));
-        JLabel titularText = new JLabel("Nombre Titular");
+        JLabel titularText = new JLabel(app.sesion.getCuenta().getTitular().getNombreCompleto());
         titularText.setPreferredSize(new Dimension(200, 30));
         titularText.setFont(new Font("Courier New", Font.PLAIN, 20));
         nrCuentaLabel = new JLabel(app.getLanguage().getString("nroCuenta"));
         nrCuentaLabel.setPreferredSize(new Dimension(200, 30));
         nrCuentaLabel.setFont(new Font("Courier New", Font.PLAIN, 20));
-        JLabel nrCuentaText = new JLabel("133742069");
+        JLabel nrCuentaText = new JLabel(Integer.toString(app.sesion.getCuenta().getNroCuenta()));
         nrCuentaText.setPreferredSize(new Dimension(200, 30));
         nrCuentaText.setFont(new Font("Courier New", Font.PLAIN, 20));
         saldoLabel = new JLabel(app.getLanguage().getString("saldoActual"));
         saldoLabel.setPreferredSize(new Dimension(200, 30));
         saldoLabel.setFont(new Font("Courier New", Font.PLAIN, 20));
-        JLabel saldoText = new JLabel("5.000.000");
+        JLabel saldoText;
+        try {
+            saldoText = new JLabel(Double.toString(
+                    ((SesionCliente)app.sesion).obtenerSaldo()
+            ));
+        } catch (SesionExpiradaException ex) {
+            app.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, App.CERRAR_SESION));
+            return;
+        }
         saldoText.setPreferredSize(new Dimension(200, 30));
         saldoText.setFont(new Font("Courier New", Font.PLAIN, 20));
         

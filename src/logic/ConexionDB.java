@@ -66,6 +66,15 @@ public class ConexionDB {
                 + "numCliente integer,"
                 + "nivAcceso integer"
                 + ");",
+            "CREATE TABLE IF NOT EXISTS Transferencia("
+                + "id integer PRIMARY KEY,"
+                + "monto saldo real CHECK(monto >= 0),"
+                + "envia integer,"
+                + "recibe integer,"
+                + "tipo integer NOT NULL,"
+                + "FOREIGN KEY(envia) REFERENCES Cuenta(nrCuenta),"
+                + "FOREIGN KEY(recibe) REFERENCES Cuenta(nrCuenta)"
+                + ");",
             "CREATE TABLE IF NOT EXISTS Servicio("
                 + "nombre text PRIMARY KEY,"
                 + "descripcion text,"
@@ -136,9 +145,10 @@ public class ConexionDB {
                 + "(4, 9876543, '"+contrasenhas[3]+"', NULL,0), "
                 + "(5, 1234567, '"+contrasenhas[4]+"', '"+contrasenhas[8]+"',5000000), "
                 + "(6, 9876543, '"+contrasenhas[5]+"', '"+contrasenhas[9]+"',500000);",
-            "INSERT INTO Servicio (nombre, descripcion, iconoPath, cuenta) VALUES "
-                + "('BNDE', 'Empresa que vende electricidad', '/iconos/bnde.ico', 5), "
-                + "('Nietflix', 'Vendedor DVDs', '/iconos/nietflix.ico', 6);",
+            "INSERT INTO Servicio (nombre, descripcion, iconoPath, monto, cuenta) VALUES "
+                + "('Servicio 1', '', 'servicio_ejemplo1_32.png', 10000, 5), "
+                + "('Servicio 2', '', 'servicio_ejemplo2_32.png', 50000, 6),"
+                + "('Otro Servicio', '', 'servicio_ejemplo3_32.png', 50000, 6);",
             "INSERT INTO Seguridad (T_MAX_SESION_CLIENTE, T_MAX_SESION_ADMIN) VALUES (2, 60);"
         };
         
