@@ -1,3 +1,5 @@
 /build/
 *.db
 /nbproject/private
+/icons
+/dist/

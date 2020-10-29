@@ -7,27 +7,21 @@ import javax.swing.*;
  *
  * @author Manuel René Pauls Toews
  */
-public final class FormularioIniciarSesion extends InnerGui {
-    private final JButton iniciarSesion;
+public final class FormularioDesbloquearCuenta extends InnerGui {
+    private final JButton desbloquarBtn;
     private final JTextField cuentaText;
-    private final JPasswordField pinText;
-    private final JLabel cuentaLabel, pinLabel, titulo;
-    private final JPanel[] lineas = new JPanel[6];
+    private final JLabel cuentaLabel, titulo;
+    private final JPanel[] lineas = new JPanel[5];
     private App app;
-    public FormularioIniciarSesion(App app) {
+    public FormularioDesbloquearCuenta(App app) {
         this.app = app;
         //crear elementos
-        iniciarSesion = new JButton(app.getLanguage().getString("iniciarSesion"));
-        iniciarSesion.addActionListener(e->intentarLogin());
+        desbloquarBtn = new JButton(app.getLanguage().getString("desbloquear"));
         cuentaLabel = new JLabel(app.getLanguage().getString("nroCuenta"));
         cuentaLabel.setPreferredSize(new Dimension(100, 20));
-        pinLabel = new JLabel(app.getLanguage().getString("pin"));
-        pinLabel.setPreferredSize(new Dimension(100, 20));
         cuentaText = new JTextField(20);
         cuentaText.setPreferredSize(new Dimension(150, 20));
-        pinText = new JPasswordField(20);
-        pinText.setPreferredSize(new Dimension(150, 20));
-        titulo = new JLabel(app.getLanguage().getString("iniciarSesion"));
+        titulo = new JLabel(app.getLanguage().getString("desbloquearCuenta"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
         
         //preparar lineas
@@ -43,24 +37,17 @@ public final class FormularioIniciarSesion extends InnerGui {
         lineas[1].add(titulo);
         lineas[2].add(cuentaLabel);
         lineas[2].add(cuentaText);
-        lineas[3].add(pinLabel);
-        lineas[3].add(pinText);
-        lineas[4].add(iniciarSesion);
+        lineas[3].add(desbloquarBtn);
         
         //agregar lineas a ventana
         for(int i = 0; i < lineas.length; i++) 
             this.add(lineas[i]);
     }
-    
-    private void intentarLogin() {
-        app.login(cuentaText.getText(), new String(pinText.getPassword()));
-    }
 
     @Override
     public void languageReload() {
-        iniciarSesion.setText(app.getLanguage().getString("iniciarSesion"));
+        desbloquarBtn.setText(app.getLanguage().getString("desbloquear"));
         cuentaLabel.setText(app.getLanguage().getString("nroCuenta"));
-        pinLabel.setText(app.getLanguage().getString("pin"));
-        titulo.setText(app.getLanguage().getString("iniciarSesion"));
+        titulo.setText(app.getLanguage().getString("desbloquearCuenta"));
     }
 }

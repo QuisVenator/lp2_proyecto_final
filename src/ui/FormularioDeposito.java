@@ -7,27 +7,25 @@ import javax.swing.*;
  *
  * @author Manuel René Pauls Toews
  */
-public final class FormularioIniciarSesion extends InnerGui {
-    private final JButton iniciarSesion;
-    private final JTextField cuentaText;
-    private final JPasswordField pinText;
-    private final JLabel cuentaLabel, pinLabel, titulo;
+public final class FormularioDeposito extends InnerGui {
+    private final JButton depositar;
+    private final JTextField cuentaText, montoText;
+    private final JLabel cuentaLabel, montoLabel, titulo;
     private final JPanel[] lineas = new JPanel[6];
     private App app;
-    public FormularioIniciarSesion(App app) {
+    public FormularioDeposito(App app) {
         this.app = app;
         //crear elementos
-        iniciarSesion = new JButton(app.getLanguage().getString("iniciarSesion"));
-        iniciarSesion.addActionListener(e->intentarLogin());
+        depositar = new JButton(app.getLanguage().getString("deposito"));
         cuentaLabel = new JLabel(app.getLanguage().getString("nroCuenta"));
         cuentaLabel.setPreferredSize(new Dimension(100, 20));
-        pinLabel = new JLabel(app.getLanguage().getString("pin"));
-        pinLabel.setPreferredSize(new Dimension(100, 20));
+        montoLabel = new JLabel(app.getLanguage().getString("monto"));
+        montoLabel.setPreferredSize(new Dimension(100, 20));
         cuentaText = new JTextField(20);
         cuentaText.setPreferredSize(new Dimension(150, 20));
-        pinText = new JPasswordField(20);
-        pinText.setPreferredSize(new Dimension(150, 20));
-        titulo = new JLabel(app.getLanguage().getString("iniciarSesion"));
+        montoText = new JTextField(20);
+        montoText.setPreferredSize(new Dimension(150, 20));
+        titulo = new JLabel(app.getLanguage().getString("hacerDeposito"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
         
         //preparar lineas
@@ -43,24 +41,20 @@ public final class FormularioIniciarSesion extends InnerGui {
         lineas[1].add(titulo);
         lineas[2].add(cuentaLabel);
         lineas[2].add(cuentaText);
-        lineas[3].add(pinLabel);
-        lineas[3].add(pinText);
-        lineas[4].add(iniciarSesion);
+        lineas[3].add(montoLabel);
+        lineas[3].add(montoText);
+        lineas[4].add(depositar);
         
         //agregar lineas a ventana
         for(int i = 0; i < lineas.length; i++) 
             this.add(lineas[i]);
     }
-    
-    private void intentarLogin() {
-        app.login(cuentaText.getText(), new String(pinText.getPassword()));
-    }
 
     @Override
     public void languageReload() {
-        iniciarSesion.setText(app.getLanguage().getString("iniciarSesion"));
+        depositar.setText(app.getLanguage().getString("deposito"));
         cuentaLabel.setText(app.getLanguage().getString("nroCuenta"));
-        pinLabel.setText(app.getLanguage().getString("pin"));
-        titulo.setText(app.getLanguage().getString("iniciarSesion"));
+        montoLabel.setText(app.getLanguage().getString("monto"));
+        titulo.setText(app.getLanguage().getString("hacerDeposito"));
     }
 }
