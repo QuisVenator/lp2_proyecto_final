@@ -1,5 +1,6 @@
 package logic;
 
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import password_hashing.PasswordStorage;
 import password_hashing.PasswordStorage.*;
@@ -10,10 +11,10 @@ import logic.excepciones.*;
  *
  * @author Manuel René Pauls Toews
  */
-public class Sesion {
+public abstract class Sesion {
     
     private ConexionDB conexionDB;
-    private boolean viva;
+    boolean viva;
     protected java.util.Date tiempoCreacion;
     protected Cuenta cuenta;
     
@@ -24,7 +25,7 @@ public class Sesion {
         try{
             ConexionDB conexionDB = new ConexionDB();
             stmt = conexionDB.getConnection().createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT estado, contrasenha, nivAcceso, ci, nombre, apellido, pinTransferencia FROM Cuenta"
+            ResultSet rs = stmt.executeQuery("SELECT estado, contrasenha, nivAcceso, ci, nombre, apellido, pinTransferencia, saldo FROM Cuenta"
                     + " INNER JOIN Persona ON titular = ci WHERE nrCuenta = "+nroCuenta+";");
             
             //si existe esta cuenta en la base de datos
@@ -33,11 +34,13 @@ public class Sesion {
                 else if(PasswordStorage.verifyPassword(pin, rs.getString("contrasenha"))) {
                     Cuenta cuenta;
                     
-                    //nivel de acceso diferencia cuentas de empleados de cuentas clientes
-                    if(rs.getInt("nivAcceso") == 0) {
+                    //cuentas empleados no tienen pin transferencia
+                    rs.getString("pinTransferencia");
+                    System.out.println(!rs.wasNull());
+                    if(!rs.wasNull()) {
                         //TODO configurar numCliente
                         sesion = new SesionCliente();
-                        Cliente titular = new Cliente(0, rs.getString("nombre"), rs.getString("apellido"), rs.getInt("ci"));
+                        Cliente titular = new Cliente(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("ci"));
                         cuenta = new CuentaCliente(rs.getString("pinTransferencia"), titular, nroCuenta);
                     }
                     else {
@@ -91,12 +94,7 @@ public class Sesion {
         }
     }
     
-    protected void verificarTiempoSesion() {
-        if(viva && tiempoCreacion.getTime() - System.currentTimeMillis() > 
-                (cuenta instanceof CuentaCliente ? SistemaSeguridad.T_MAX_SESION_CLIENTE : SistemaSeguridad.T_MAX_SESION_EMPLEADO)) {
-            destruirSesion();
-        }
-    }
+    protected abstract void verificarTiempoSesion();
     
     protected String hash(String contrasenha) {
         String hash;
@@ -112,6 +110,7 @@ public class Sesion {
         if(!viva && conexionDB != null) {
             destruirSesion(); //si llegamos a este punto significa que hubo un error al cerrar la conexión antes y vamos a intentar nuevamente
         }
+        verificarTiempoSesion();
         return viva;
     }
     
@@ -122,6 +121,10 @@ public class Sesion {
     
     public ConexionDB getConexion() {
         return conexionDB;
+    }
+    
+    public Cuenta getCuenta() {
+        return cuenta;
     }
     
     private void bloquearCuenta(int nrCuenta) throws SesionExpiradaException {

@@ -1,7 +1,11 @@
 
 package logic;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Date;
+import ui.Mensaje;
 
 /**
  *
@@ -24,7 +28,19 @@ public class Log extends DBObject {
     
     @Override
     public int guardar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ConexionDB dbc = getSesion().getConexion();
+        Connection conn = dbc.getConnection();
+        String queryString = "INSERT INTO Log (tipo, descripcion, cuenta) VALUES (?, ?, ?);";
+        try(PreparedStatement stmt = conn.prepareStatement(queryString)) {
+            stmt.setString(1, tipo);
+            stmt.setString(2, descripcion);
+            stmt.setInt(3, cuenta.getNroCuenta());
+            stmt.execute();
+            return 0;
+        } catch(SQLException e) {
+            Mensaje.crearMensajeError("dbErrorTitulo", "dbErrorMensaje");
+            return -1;
+        }
     }
 
 }

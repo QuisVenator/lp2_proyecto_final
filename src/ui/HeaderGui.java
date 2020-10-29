@@ -98,11 +98,13 @@ public final class HeaderGui extends InnerGui {
                 menu.add(transferenciaBtn);
                 
                 nameLabel = new JLabel();
-                nameLabel.setText("123456789");
+                nameLabel.setText(Integer.toString(app.sesion.getCuenta().getTitular().getCI()));
                 cerrarSesion = new JButton(app.getLanguage().getString("cerrarSesion"));
                 cerrarSesion.setActionCommand(App.CERRAR_SESION);
                 sesion.add(nameLabel);
                 JButton tutorialBtn = new JButton(app.getLanguage().getString("ayuda"));
+                tutorialBtn.setActionCommand(App.TUTORIAL);
+                tutorialBtn.addActionListener(app);
                 tutorialBtn.setIcon(new ImageIcon("iconos/tutorial_16.png"));
                 sesion.add(tutorialBtn);
                 
