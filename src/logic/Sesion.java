@@ -46,6 +46,7 @@ public class Sesion {
                         cuenta = new CuentaEmpleado(titular, nroCuenta);
                     }
                     cuenta.setEstado(rs.getInt("estado"));
+                    sesion.conexionDB = conexionDB;
                     sesion.cuenta = cuenta;
                     sesion.viva = true;
                     sesion.tiempoCreacion = new java.util.Date();

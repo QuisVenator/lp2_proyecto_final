@@ -1,6 +1,12 @@
 
 package logic;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import ui.Mensaje;
+
 /**
  *
  * @author Manuel René Pauls Toews
@@ -12,7 +18,11 @@ public abstract class Cuenta extends DBObject {
     private int estado;
     
     public Cuenta(Persona titular, String contrasenha, int nroCuenta) {
-        this.nrCuenta = nrCuenta;
+        this.nrCuenta = nroCuenta;
+        this.contrasenhaHash = contrasenha;
+        this.titular = titular;
+    }
+    public Cuenta(Persona titular, String contrasenha) {
         this.contrasenhaHash = contrasenha;
         this.titular = titular;
     }
@@ -35,6 +45,17 @@ public abstract class Cuenta extends DBObject {
     
     @Override
     public int guardar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ConexionDB dbc = getSesion().getConexion();
+        Connection conn = dbc.getConnection();
+        String queryString = "INSERT INTO Cuenta (titular, contrasenha) VALUES (?, ?);";
+        try(PreparedStatement stmt = conn.prepareStatement(queryString)) {
+            stmt.setString(2, contrasenhaHash);
+            stmt.setInt(1, titular.getCI());
+            stmt.execute();
+            return 0;
+        } catch(SQLException e) {
+            Mensaje.crearMensajeError("dbErrorTitulo", "dbErrorMensaje");
+            return -1;
+        }
     }
 }

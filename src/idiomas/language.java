@@ -51,7 +51,12 @@ public class language extends ListResourceBundle {
         {"bienvenidoNombre",                "Bienvenido {0}"},
         {"saldo",                           "Saldo"},
         {"queDeseaHacer",                   "Qué desea hacer?"},
-        {"idiomaNombre",                    "Español"}
+        {"idiomaNombre",                    "Español"},
+        
+        {"loginNoExitoso",                  "Iniciar sesión no posible"},
+        {"loginErrorMessage",               "Cuenta no encontrada. Por favor verificar datos e intentar nuevamente."},
+        {"dbErrorTitulo",                   "Error en base de datos"}, 
+        {"dbErrorMensaje",                  "Acción no pudo ser realizada. Verifique sus datos y pruebe de nuevo!"}
     };
     @Override
     protected Object[][] getContents() {
