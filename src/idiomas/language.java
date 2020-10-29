@@ -63,7 +63,9 @@ public class language extends ListResourceBundle {
         {"saldoInsuficienteTitulo",         "Saldo Insuficiente"},
         {"saldoInsuficiente",               "Saldo insuficiente para realizar la transaccion"},
         {"servicioPagadoTitulo",            "Servicio Pagado"},
-        {"servicioPagado",                  "El servicio se ha pagado exitosamente!"}
+        {"servicioPagado",                  "El servicio se ha pagado exitosamente!"},
+        {"pdfOpenErrorTitulo",              "Error al abrid PDF"},
+        {"pdfOpenError",                    "No se pudo abrir el tutorial. Por favor asegurese que tenga una aplicacion para leer .pdf instalado."}
     };
     @Override
     protected Object[][] getContents() {

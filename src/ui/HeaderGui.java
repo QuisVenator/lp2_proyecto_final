@@ -103,6 +103,8 @@ public final class HeaderGui extends InnerGui {
                 cerrarSesion.setActionCommand(App.CERRAR_SESION);
                 sesion.add(nameLabel);
                 JButton tutorialBtn = new JButton(app.getLanguage().getString("ayuda"));
+                tutorialBtn.setActionCommand(App.TUTORIAL);
+                tutorialBtn.addActionListener(app);
                 tutorialBtn.setIcon(new ImageIcon("iconos/tutorial_16.png"));
                 sesion.add(tutorialBtn);
                 

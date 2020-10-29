@@ -1,8 +1,11 @@
 package ui;
 
 
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ListResourceBundle;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -32,6 +35,7 @@ public class App implements ActionListener {
     public static final String GUI_SALDO = "gui saldo";
     public static final String CERRAR_SESION = "cerrar sesion";
     public static final String CAMBIAR_LENGUAJE = "cambiar lenguaje";
+    public static final String TUTORIAL = "mostrar tutorial";
     
     private final OuterGui outer;
     private ResourceBundle languages;
@@ -97,6 +101,16 @@ public class App implements ActionListener {
                 if(!languages.getString("idiomaNombre").equals(((JComboBox)e.getSource()).getSelectedItem())) {
                     setLanguage(((JComboBox)e.getSource()).getSelectedIndex());
                     outer.changeLanguage();
+                }
+                break;
+            case TUTORIAL:
+                if (Desktop.isDesktopSupported()) {
+                    try {
+                        File myFile = new File("./src/tutorial/FAQ_Lp2.pdf");
+                        Desktop.getDesktop().open(myFile);
+                    } catch (IOException ex) {
+                        Mensaje.crearMensajeError("pdfOpenErrorTitulo", "pdfOpenError");
+                    }
                 }
                 break;
         }
