@@ -8,10 +8,10 @@ package logic;
 public abstract class DBObject {
     protected Sesion sesion;
     
-    protected void setConexion(Sesion sesion) {
+    public void setSesion(Sesion sesion) {
         this.sesion = sesion;
     }
-    protected Sesion getConexion() {
+    public Sesion getSesion() {
         return sesion;
     }
     public abstract int guardar();

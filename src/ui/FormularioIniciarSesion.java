@@ -53,7 +53,7 @@ public final class FormularioIniciarSesion extends InnerGui {
     }
     
     private void intentarLogin() {
-        app.intentarLogin(cuentaText.getText(), new String(pinText.getPassword()));
+        app.login(cuentaText.getText(), new String(pinText.getPassword()));
     }
 
     @Override
