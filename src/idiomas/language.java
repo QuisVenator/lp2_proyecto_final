@@ -71,7 +71,8 @@ public class language extends ListResourceBundle {
         {"inputNoCorrectoTitulo",           "Entrada erronea"},
         {"inputNoCorrecto",                 "Nuestro sistema no pudo interpretar una de sus entradas. Porfavor verifique todos los campos para intentar de nuevo."},
         {"cuentaNoEncontradaTitulo",        "Cuenta no encontrada"},
-        {"cuentaNoEncontrada",              "No pudimos encontrar esta cuenta, por favor verificar todos los campos."}
+        {"cuentaNoEncontrada",              "No pudimos encontrar esta cuenta, por favor verificar todos los campos."},
+        {"tutorialArchivo",                 "FAQ_Lp2_ES.pdf"}
     };
     @Override
     protected Object[][] getContents() {

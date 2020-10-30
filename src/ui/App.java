@@ -106,7 +106,7 @@ public class App implements ActionListener {
             case TUTORIAL:
                 if (Desktop.isDesktopSupported()) {
                     try {
-                        File myFile = new File("./src/tutorial/FAQ_Lp2.pdf");
+                        File myFile = new File("./src/tutorial/"+getLanguage().getString("tutorialArchivo"));
                         Desktop.getDesktop().open(myFile);
                     } catch (IOException ex) {
                         Mensaje.crearMensajeError("pdfOpenErrorTitulo", "pdfOpenError");

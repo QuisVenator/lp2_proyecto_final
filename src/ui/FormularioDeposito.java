@@ -1,7 +1,12 @@
 package ui;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
+import logic.SesionEmpleado;
+import logic.excepciones.SesionExpiradaException;
 
 /**
  *
@@ -27,6 +32,14 @@ public final class FormularioDeposito extends InnerGui {
         montoText.setPreferredSize(new Dimension(150, 20));
         titulo = new JLabel(app.getLanguage().getString("hacerDeposito"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
+        
+        depositar.addActionListener((ActionEvent e) -> {
+            try {
+                ((SesionEmpleado)app.sesion).deposito(Double.parseDouble(montoText.getText()), Integer.parseInt(cuentaText.getText()));
+            } catch (SesionExpiradaException ex) {
+                Logger.getLogger(FormularioDeposito.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
         
         //preparar lineas
         for(int i = 0; i < lineas.length; i++) {
