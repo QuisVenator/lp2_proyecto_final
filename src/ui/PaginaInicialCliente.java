@@ -29,7 +29,7 @@ public final class PaginaInicialCliente extends InnerGui {
         
         //cuando se tienen que pasar variables como nombre a la cadena disponible en varios
         //formatos usamos MessageFormat, porque el orden puede variar por lenguaje
-        titulo = new JLabel(MessageFormat.format(app.getLanguage().getString("bienvenidoNombre"), "NOMBRE"), JLabel.CENTER);
+        titulo = new JLabel(MessageFormat.format(app.getLanguage().getString("bienvenidoNombre"), app.sesion.getCuenta().getTitular().getNombre()), JLabel.CENTER);
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 36));
         lineas[1].add(titulo);
         titulo2 = new JLabel(app.getLanguage().getString("queDeseaHacer"), JLabel.CENTER);
@@ -72,7 +72,7 @@ public final class PaginaInicialCliente extends InnerGui {
 
     @Override
     public void languageReload() {
-        titulo.setText(MessageFormat.format(app.getLanguage().getString("bienvenidoNombre"), "NOMBRE"));
+        titulo.setText(MessageFormat.format(app.getLanguage().getString("bienvenidoNombre"), app.sesion.getCuenta().getTitular().getNombre()));
         informeBtn.setText(app.getLanguage().getString("informe"));
         titulo2.setText(app.getLanguage().getString("queDeseaHacer"));
         pagarServicioBtn.setText(app.getLanguage().getString("pagarServicio"));

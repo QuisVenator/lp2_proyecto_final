@@ -13,7 +13,9 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import logic.Servicio;
@@ -66,11 +68,13 @@ public final class FormularioPagarServicio extends InnerGui {
             btn.setHorizontalAlignment(SwingConstants.LEFT);
             btn.setPreferredSize(new Dimension(600, 40));
             btn.addActionListener((ActionEvent e) -> {
+                String pin = Mensaje.crearMensajeInput("pinTransferencia", "pinTransferencia");
+                if(pin == null) return;
                 try {
                     ((SesionCliente)app.sesion).pagarServicio(
                             servicio, 
                             servicio.getMonto(), 
-                            Mensaje.crearMensajeInput("pinTransferencia", "pinTransferencia")
+                            pin
                     );
                 } catch (SesionExpiradaException ex) {
                     app.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, App.CERRAR_SESION));
