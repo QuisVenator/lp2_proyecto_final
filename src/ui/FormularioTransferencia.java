@@ -1,7 +1,10 @@
 package ui;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import javax.swing.*;
+import logic.SesionCliente;
+import logic.excepciones.SesionExpiradaException;
 
 /**
  *
@@ -32,6 +35,17 @@ public final class FormularioTransferencia extends InnerGui {
         pinText.setPreferredSize(new Dimension(150, 20));
         titulo = new JLabel(app.getLanguage().getString("transferencia"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
+        
+        efectuarTransferencia.addActionListener((ActionEvent e) -> {
+            try {
+                ((SesionCliente)app.sesion).generarTransferencia(Integer.parseInt(cuentaText.getText()), 
+                        Double.parseDouble(montoText.getText()), new String(pinText.getPassword()));
+            } catch (NumberFormatException ex) {
+                Mensaje.crearMensajeError("inputNoCorrectoTitulo", "inputNoCorrecto");
+            } catch (SesionExpiradaException ex) {
+                    app.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, App.CERRAR_SESION));
+            }
+        });
         
         //preparar lineas
         for(int i = 0; i < lineas.length; i++) {

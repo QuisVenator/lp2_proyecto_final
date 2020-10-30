@@ -94,7 +94,6 @@ public final class Transferencia extends DBObject {
                 return 0;
             }
         } catch(SQLException e) {
-            e.printStackTrace();
             Mensaje.crearMensajeError("dbErrorTitulo", "dbErrorMensaje");
             return -1;
         } finally { 
