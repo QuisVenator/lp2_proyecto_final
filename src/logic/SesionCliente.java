@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -82,7 +83,7 @@ public class SesionCliente extends Sesion {
             return servicios;
         }
     }
-    public int pagarServicio(Servicio servicio, double monto, String pinTransferencia) throws SesionExpiradaException {
+    public int pagarServicio(Servicio servicio, String pinTransferencia) throws SesionExpiradaException {
         if(!marcarActividad()){ //marcar actividad para que no se cierre la sesión por inactividad y verificar si no se cerró antes
             throw new SesionExpiradaException();
         }
@@ -96,7 +97,8 @@ public class SesionCliente extends Sesion {
                 transferencia.setSesion(this);
                 if(transferencia.efectuar() == 0) {
                     transferencia.guardar();
-                    Mensaje.crearMensajeConfirmacion("servicioPagadoTitulo", "servicioPagado");
+                    Object[] detalles = {new Date(), cuenta.getNroCuenta(), servicio.getNombre(), servicio.getMonto()};
+                    Mensaje.crearMensajeConfirmacion("servicioPagadoTitulo", "servicioPagado", detalles);
                     return 0;
                 }
                 return -1;
@@ -142,7 +144,8 @@ public class SesionCliente extends Sesion {
                 transferencia.setSesion(this);
                 if(transferencia.efectuar() == 0) {
                     transferencia.guardar();
-                    Mensaje.crearMensajeConfirmacion("transferenciaRealizadaTitulo", "transferenciaRealizada");
+                    Object[] detalles = {new Date(), cuenta.getNroCuenta(), nrCuenta, monto};
+                    Mensaje.crearMensajeConfirmacion("transferenciaRealizadaTitulo", "transferenciaRealizada", detalles);
                     return 0;
                 }else return -1;
             } else {

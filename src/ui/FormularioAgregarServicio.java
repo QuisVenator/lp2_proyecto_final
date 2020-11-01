@@ -1,7 +1,11 @@
 package ui;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import javax.swing.*;
+import logic.Servicio;
+import logic.SesionEmpleado;
+import logic.excepciones.SesionExpiradaException;
 
 /**
  *
@@ -39,6 +43,21 @@ public final class FormularioAgregarServicio extends InnerGui {
         iconoText.setPreferredSize(new Dimension(150, 20));
         titulo = new JLabel(app.getLanguage().getString("agregarServicio"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
+        
+        agregarBtn.addActionListener((ActionEvent e) ->{
+            try {
+                Servicio servicio = new Servicio(Integer.parseInt(cuentaText.getText()), Double.parseDouble(montoText.getText()),
+                        nombreText.getText(), descripcionText.getText(), iconoText.getText());
+                if(((SesionEmpleado)app.sesion).agregarServicio(servicio) == 0) {
+                    Mensaje.crearMensajeConfirmacion("servicioCreadoTitulo", "servicioCreado", 
+                            new Object[] {servicio.getCuentaNr(), servicio.getNombre(), servicio.getMonto()});
+                }
+            } catch (NumberFormatException ex) {
+                Mensaje.crearMensajeError("inputNoCorrectoTitulo", "inputNoCorrecto");
+            } catch (SesionExpiradaException ex) {
+                app.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, App.CERRAR_SESION));
+            }
+        });
         
         //preparar lineas
         for(int i = 0; i < lineas.length; i++) {

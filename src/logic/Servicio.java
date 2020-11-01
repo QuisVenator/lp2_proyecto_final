@@ -64,7 +64,7 @@ public class Servicio extends DBObject {
     public int guardar() {
         ConexionDB dbc = getSesion().getConexion();
         Connection conn = dbc.getConnection();
-        String queryString = "INSERT INTO Servicio (nombre, descripcion, iconoPath, monto, cuenta) VALUES (?,?,?,?);";
+        String queryString = "INSERT INTO Servicio (nombre, descripcion, iconoPath, monto, cuenta) VALUES (?,?,?,?,?);";
         try(PreparedStatement stmt = conn.prepareStatement(queryString)) {
             stmt.setString(1, nombre);
             stmt.setString(2, descripcion);

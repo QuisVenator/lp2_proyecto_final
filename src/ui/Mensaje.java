@@ -1,6 +1,8 @@
 
 package ui;
 
+import java.text.MessageFormat;
+import java.util.Arrays;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -11,8 +13,10 @@ import javax.swing.JOptionPane;
 public class Mensaje {
     public static App app;
     
-    public static int crearMensajeConfirmacion(String titulo, String mensaje) {
-        JOptionPane.showMessageDialog(null, app.getLanguage().getString(mensaje), app.getLanguage().getString(titulo), JOptionPane.INFORMATION_MESSAGE);
+    public static int crearMensajeConfirmacion(String titulo, String mensaje, Object[] argumentos) {
+        MessageFormat format = new MessageFormat(app.getLanguage().getString(mensaje));
+        System.out.println(format.format(argumentos));
+        JOptionPane.showMessageDialog(null, format.format(argumentos), app.getLanguage().getString(titulo), JOptionPane.INFORMATION_MESSAGE);
         return 0;
     }
     public static int crearMensajeError(String titulo, String mensaje) {

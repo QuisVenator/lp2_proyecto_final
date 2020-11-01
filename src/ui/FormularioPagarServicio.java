@@ -72,8 +72,7 @@ public final class FormularioPagarServicio extends InnerGui {
                 if(pin == null) return;
                 try {
                     ((SesionCliente)app.sesion).pagarServicio(
-                            servicio, 
-                            servicio.getMonto(), 
+                            servicio,
                             pin
                     );
                 } catch (SesionExpiradaException ex) {

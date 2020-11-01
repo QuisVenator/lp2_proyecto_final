@@ -15,6 +15,7 @@ import ui.Mensaje;
 public final class Transferencia extends DBObject {
     public static final int ENTRE_CUENTAS = 1;
     public static final int SERVICIO = 2;
+    public static final  int DEPOSITO = 3;
     
     private CuentaCliente cuentaReceptora, cuentaEmisora;
     private double monto;

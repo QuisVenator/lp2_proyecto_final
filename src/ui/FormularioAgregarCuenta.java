@@ -1,7 +1,17 @@
 package ui;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.security.SecureRandom;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
+import logic.Cliente;
+import logic.Cuenta;
+import logic.CuentaCliente;
+import logic.SesionEmpleado;
+import logic.excepciones.SesionExpiradaException;
+import password_hashing.PasswordStorage;
 
 /**
  *
@@ -47,6 +57,21 @@ public final class FormularioAgregarCuenta extends InnerGui {
         nombreText.setPreferredSize(new Dimension(150, 20));
         titulo = new JLabel(app.getLanguage().getString("agregarCuenta"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
+        
+        agregarBtn.addActionListener((ActionEvent e) -> {
+            try {
+                int doc = Integer.parseInt(ciText.getText());
+                int niv = Integer.parseInt(accesoText.getText());
+                ((SesionEmpleado)app.sesion).agregarPersona(doc, nombreText.getText(), apellidoText.getText(),
+                        telText.getText(), direccionText.getText(), correoText.getText(), niv);
+                
+                ((SesionEmpleado)app.sesion).agregarCuenta(doc, niv);
+            } catch (NumberFormatException ex) {
+                Mensaje.crearMensajeError("inputNoCorrectoTitulo", "inputNoCorrecto");
+            } catch (SesionExpiradaException ex) {
+                app.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, App.CERRAR_SESION));
+            }
+        });
         
         //preparar lineas
         for(int i = 0; i < lineas.length; i++) {
