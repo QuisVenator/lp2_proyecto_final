@@ -161,7 +161,7 @@ public class ConexionDB {
                 + "('Servicio 1', '', 'servicio_ejemplo1_32.png', 10000, 5), "
                 + "('Servicio 2', '', 'servicio_ejemplo2_32.png', 50000, 6),"
                 + "('Otro Servicio', '', 'servicio_ejemplo3_32.png', 50000, 6);",
-            "INSERT INTO Seguridad (T_MAX_SESION_CLIENTE, T_MAX_SESION_ADMIN) VALUES (2, 60);"
+            "INSERT INTO Seguridad (T_MAX_SESION_CLIENTE, T_MAX_SESION_ADMIN) VALUES (60000, 300000);"
         };
         
         try (Statement stmt = conn.createStatement()) {
