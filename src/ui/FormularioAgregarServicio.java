@@ -41,6 +41,7 @@ public final class FormularioAgregarServicio extends InnerGui {
         descripcionText.setPreferredSize(new Dimension(150, 20));
         iconoText = new JTextField(20);
         iconoText.setPreferredSize(new Dimension(150, 20));
+        iconoText.setText("default");
         titulo = new JLabel(app.getLanguage().getString("agregarServicio"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
         

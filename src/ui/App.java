@@ -17,6 +17,7 @@ import logic.Empleado;
 import logic.Sesion;
 import logic.SesionEmpleado;
 import logic.excepciones.AuthentificationException;
+import logic.excepciones.BlockedAccountException;
 
 /**
  *
@@ -126,6 +127,8 @@ public class App implements ActionListener {
                 outer.mostrarContenido(new PaginaInicialCliente(this));
                 outer.getHeader().setHeader(HeaderGui.HEADER_CLIENTE);
             }
+        } catch(BlockedAccountException e) {
+            Mensaje.crearMensajeError("loginNoExitoso", "cuentaBloqueadaError");
         } catch(NumberFormatException | AuthentificationException e) {
             Mensaje.crearMensajeError("loginNoExitoso", "loginErrorMessage");
         }

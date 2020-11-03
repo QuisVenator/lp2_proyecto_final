@@ -1,7 +1,11 @@
 package ui;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import javax.swing.*;
+import logic.CuentaCliente;
+import logic.SesionEmpleado;
+import logic.excepciones.SesionExpiradaException;
 
 /**
  *
@@ -23,6 +27,16 @@ public final class FormularioEliminarCuenta extends InnerGui {
         cuentaText.setPreferredSize(new Dimension(150, 20));
         titulo = new JLabel(app.getLanguage().getString("eliminarCuenta"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
+        
+        eliminarBtn.addActionListener((ActionEvent e) -> {
+            try{
+                ((SesionEmpleado)app.sesion).eliminarCuenta(new CuentaCliente(null, null, Integer.parseInt(cuentaText.getText())));
+            } catch (NumberFormatException ex) {
+                Mensaje.crearMensajeError("inputNoCorrectoTitulo", "inputNoCorrecto");
+            } catch (SesionExpiradaException ex) {
+                app.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, App.CERRAR_SESION));
+            }
+        });
         
         //preparar lineas
         for(int i = 0; i < lineas.length; i++) {

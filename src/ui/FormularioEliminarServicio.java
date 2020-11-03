@@ -1,7 +1,11 @@
 package ui;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import javax.swing.*;
+import logic.Servicio;
+import logic.SesionEmpleado;
+import logic.excepciones.SesionExpiradaException;
 
 /**
  *
@@ -23,6 +27,15 @@ public final class FormularioEliminarServicio extends InnerGui {
         codigoText.setPreferredSize(new Dimension(150, 20));
         titulo = new JLabel(app.getLanguage().getString("eliminarServicio"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
+        
+        eliminarBtn.addActionListener((ActionEvent e) ->{
+            try {
+                Servicio servicio = new Servicio(0, 0, codigoText.getText());
+                ((SesionEmpleado)app.sesion).eliminarServicio(servicio);
+            } catch (SesionExpiradaException ex) {
+                app.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, App.CERRAR_SESION));
+            }
+        });
         
         //preparar lineas
         for(int i = 0; i < lineas.length; i++) {

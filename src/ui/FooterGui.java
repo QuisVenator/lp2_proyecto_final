@@ -18,6 +18,7 @@ public final class FooterGui extends InnerGui {
         terminarSimulacion = new JButton(app.getLanguage().getString("terminarSimulacion"));
         terminarSimulacion.setIcon(new ImageIcon("iconos/cancelar_16.png"));
         terminarSimulacion.addActionListener(e -> System.exit(0));
+        terminarSimulacion.setFocusable(false);
         this.setLayout(new FlowLayout(FlowLayout.CENTER));
         this.add(terminarSimulacion);
     }

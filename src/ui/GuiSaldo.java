@@ -50,7 +50,7 @@ public final class GuiSaldo extends InnerGui {
         saldoLabel.setFont(new Font("Courier New", Font.PLAIN, 20));
         JLabel saldoText;
         try {
-            saldoText = new JLabel(Double.toString(
+            saldoText = new JLabel(String.format("%.2f",
                     ((SesionCliente)app.sesion).obtenerSaldo()
             ));
         } catch (SesionExpiradaException ex) {

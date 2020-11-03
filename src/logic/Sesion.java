@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import password_hashing.PasswordStorage;
 import password_hashing.PasswordStorage.*;
 import java.sql.*;
+import java.util.HashMap;
 import logic.excepciones.*;
 
 /**
@@ -17,6 +18,7 @@ public abstract class Sesion {
     boolean viva;
     protected java.util.Date tiempoCreacion;
     protected Cuenta cuenta;
+    private static final HashMap<Integer, Integer> INTENTOS_FALLIDOS = new HashMap<Integer, Integer>();
     
     public static Sesion iniciarSesion(String pin, int nroCuenta) throws AuthentificationException {
         boolean error = false;
@@ -56,7 +58,15 @@ public abstract class Sesion {
                     return sesion;
                 }
                 else {
-                    //TODO posiblemente marcar intento fallido
+                    //bloquear si se hicieron más de 5 intentos
+                    if(INTENTOS_FALLIDOS.containsKey(nroCuenta))
+                        INTENTOS_FALLIDOS.put(nroCuenta, INTENTOS_FALLIDOS.get(nroCuenta) + 1);
+                    else
+                        INTENTOS_FALLIDOS.put(nroCuenta, 1);
+                    if(INTENTOS_FALLIDOS.get(nroCuenta) >= 5) {
+                        bloquearCuenta(nroCuenta, conexionDB);
+                    }
+                    
                     throw new InvalidCredentialsException();
                 }
             } else throw new InvalidCredentialsException();
@@ -69,7 +79,7 @@ public abstract class Sesion {
         } catch (InvalidHashException ex) {
             System.out.println("Hash pasado no es valido!");
             error = true;
-        } catch (Exception e) {
+        } catch (BlockedAccountException | InvalidCredentialsException e) {
             throw e;
         } finally {
             try{
@@ -127,17 +137,11 @@ public abstract class Sesion {
         return cuenta;
     }
     
-    private void bloquearCuenta(int nrCuenta) throws SesionExpiradaException {
-        if(!marcarActividad()) throw new SesionExpiradaException();
-        String razon;
-        //administradores pueden bloquear cualquier cuenta, cliente solo su propia cuenta
-        if(this instanceof SesionEmpleado)
-            razon = "Bloqueado por administrador.";
-        else if((this instanceof SesionCliente && cuenta.getNroCuenta() == nrCuenta))
-            razon = "Bloqueo automático.";
-        else return; //no tiene permisos para bloquear
-        
-        //TODO crear comandos base de datos para bloquear
+    private static void bloquearCuenta(int nrCuenta, ConexionDB conexionDB) throws SQLException {
+        String query = "UPDATE Cuenta SET estado = 1 WHERE nrCuenta = ?";
+        PreparedStatement stmt = conexionDB.getConnection().prepareStatement(query);
+        stmt.setInt(1, nrCuenta);
+        stmt.executeUpdate();
     }
     
     @Override

@@ -74,7 +74,7 @@ public class SesionEmpleado extends Sesion {
                 log.guardar();
                 
                 Object[] detalles = {nrCuenta};
-                Mensaje.crearMensajeConfirmacion("depositoConfirmacionTitulo", "depositoConfirmacion", detalles);
+                Mensaje.crearMensajeConfirmacion("desbloqueoConfirmacionTitulo", "desbloqueoConfirmacion", detalles);
                 return 0;
             } else {
                 Mensaje.crearMensajeError("dbErrorTitulo", "dbErrorMensaje");
@@ -176,6 +176,8 @@ public class SesionEmpleado extends Sesion {
             Log log = new Log("acción admin", this.cuenta, "borrado de cuenta");
             log.setSesion(this);
             log.guardar();
+            
+            Mensaje.crearMensajeConfirmacion("cuentaEliminadaTitulo", "cuentaEliminada", new Object[] {cuenta.getNroCuenta()});
         } catch(SQLException ex) {
             Mensaje.crearMensajeError("dbErrorTitulo", "dbErrorMensaje");
             return -3;
@@ -200,6 +202,8 @@ public class SesionEmpleado extends Sesion {
             Log log = new Log("acción admin", cuenta, "borrado de servicio");
             log.setSesion(this);
             log.guardar();
+            
+            Mensaje.crearMensajeConfirmacion("servicioEliminadoTitulo", "servicioEliminado", new Object[]{servicio.getNombre()});
         } catch(SQLException ex) {
             Mensaje.crearMensajeError("dbErrorTitulo", "dbErrorMensaje");
             return -3;

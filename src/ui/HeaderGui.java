@@ -98,7 +98,7 @@ public final class HeaderGui extends InnerGui {
                 menu.add(transferenciaBtn);
                 
                 nameLabel = new JLabel();
-                nameLabel.setText(Integer.toString(app.sesion.getCuenta().getTitular().getCI()));
+                nameLabel.setText("Cuenta: "+app.sesion.getCuenta().getNroCuenta());
                 cerrarSesion = new JButton(app.getLanguage().getString("cerrarSesion"));
                 cerrarSesion.setActionCommand(App.CERRAR_SESION);
                 sesion.add(nameLabel);
