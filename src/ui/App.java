@@ -72,6 +72,7 @@ public class App implements ActionListener {
         switch(e.getActionCommand()) {
             case CERRAR_SESION:
                 sesion.destruirSesion();
+                sesion = null;
             case FORMULARIO_INICIO_SESION:
                 outer.mostrarContenido(new FormularioIniciarSesion(this));
                 outer.getHeader().setHeader(HeaderGui.HEADER_VACIO);

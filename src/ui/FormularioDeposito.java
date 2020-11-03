@@ -33,7 +33,9 @@ public final class FormularioDeposito extends InnerGui {
                 ((SesionEmpleado)app.sesion).deposito(Double.parseDouble(montoText.getText()), Integer.parseInt(cuentaText.getText()));
             } catch (SesionExpiradaException ex) {
                 app.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, App.CERRAR_SESION));
-            }
+            } catch (NumberFormatException ex) {
+                Mensaje.crearMensajeError("inputNoCorrectoTitulo", "inputNoCorrecto");
+            } 
         });
         
         //preparar lineas
