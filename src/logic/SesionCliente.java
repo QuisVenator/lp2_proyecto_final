@@ -8,7 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -159,9 +161,103 @@ public class SesionCliente extends Sesion {
         }
     }
     
-    public Reporte generarReporte() {
-        Reporte report = new Reporte();
+    public int generarReporte(Reporte report) throws SesionExpiradaException {
+        report.addTituloPrincipal(Integer.toString(getCuenta().getNroCuenta()));
+        report.addDatosCliente(getCuenta().getTitular().getNombreCompleto(), Integer.toString(getCuenta().getNroCuenta()), String.format("%.2f", obtenerSaldo()));
         
-        report.addTituloPrincipal();
+        LinkedList<LinkedList<String>> transferencias = new LinkedList<>();
+        String[] titulos = {
+            report.app.getLanguage().getString("id"),
+            report.app.getLanguage().getString("cuenta"),
+            report.app.getLanguage().getString("monto")
+        };
+        
+        try(PreparedStatement stmt = getConexion().getConnection().prepareStatement("SELECT * FROM Transferencia WHERE envia = ? AND tipo = ?;")) {
+            stmt.setInt(1, getCuenta().getNroCuenta());
+            stmt.setInt(2, Transferencia.ENTRE_CUENTAS);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()) {
+                LinkedList<String> linea = new LinkedList<>();
+                linea.add(Integer.toString(rs.getInt("id")));
+                linea.add(Integer.toString(rs.getInt("recibe")));
+                linea.add(String.format("%.2f", rs.getDouble("monto")));
+                transferencias.add(linea);
+            }
+        } catch(SQLException ex) {
+            Mensaje.crearMensajeError("dbErrorTitulo", "dbErrorMensaje");
+            report.cerrar();
+            return -3;
+        }
+        report.addTabla("transferenciasRealizadas", titulos, transferencias);
+        
+        
+        transferencias = new LinkedList<>();
+        try(PreparedStatement stmt = getConexion().getConnection().prepareStatement("SELECT * FROM Transferencia WHERE recibe = ? AND tipo = ?;")) {
+            stmt.setInt(1, getCuenta().getNroCuenta());
+            stmt.setInt(2, Transferencia.ENTRE_CUENTAS);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()) {
+                LinkedList<String> linea = new LinkedList<>();
+                linea.add(Integer.toString(rs.getInt("id")));
+                linea.add(Integer.toString(rs.getInt("envia")));
+                linea.add(String.format("%.2f", rs.getDouble("monto")));
+                transferencias.add(linea);
+            }
+        } catch(SQLException ex) {
+            Mensaje.crearMensajeError("dbErrorTitulo", "dbErrorMensaje");
+            report.cerrar();
+            return -3;
+        }
+        if(transferencias.size() > 0)
+            report.addTabla("transferenciasRecibidas", titulos, transferencias);
+        
+        
+        titulos = new String[]{
+            report.app.getLanguage().getString("id"),
+            report.app.getLanguage().getString("monto")
+        };
+        transferencias = new LinkedList<>();
+        try(PreparedStatement stmt = getConexion().getConnection().prepareStatement("SELECT * FROM Transferencia WHERE envia = ? AND tipo = ?;")) {
+            stmt.setInt(1, getCuenta().getNroCuenta());
+            stmt.setInt(2, Transferencia.SERVICIO);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()) {
+                LinkedList<String> linea = new LinkedList<>();
+                linea.add(Integer.toString(rs.getInt("id")));
+                linea.add(String.format("%.2f", rs.getDouble("monto")));
+                transferencias.add(linea);
+            }
+        } catch(SQLException ex) {
+            Mensaje.crearMensajeError("dbErrorTitulo", "dbErrorMensaje");
+            report.cerrar();
+            return -3;
+        }
+        
+        if(transferencias.size() > 0)
+            report.addTabla("transferenciasAServicios", titulos, transferencias);
+        
+        
+        transferencias = new LinkedList<>();
+        try(PreparedStatement stmt = getConexion().getConnection().prepareStatement("SELECT * FROM Transferencia WHERE recibe = ? AND tipo = ?;")) {
+            stmt.setInt(1, getCuenta().getNroCuenta());
+            stmt.setInt(2, Transferencia.DEPOSITO);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()) {
+                LinkedList<String> linea = new LinkedList<>();
+                linea.add(Integer.toString(rs.getInt("id")));
+                linea.add(String.format("%.2f", rs.getDouble("monto")));
+                transferencias.add(linea);
+            }
+        } catch(SQLException ex) {
+            Mensaje.crearMensajeError("dbErrorTitulo", "dbErrorMensaje");
+            report.cerrar();
+            return -3;
+        }
+        if(transferencias.size() > 0)
+            report.addTabla("deposito", titulos, transferencias);
+        
+        report.cerrar();
+        
+        return 0;
     }
 }

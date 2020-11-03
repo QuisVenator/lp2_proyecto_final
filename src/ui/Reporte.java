@@ -23,11 +23,12 @@ import com.itextpdf.layout.property.TabAlignment;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import ui.App;
 
 
 
@@ -41,12 +42,14 @@ public class Reporte {
     public Document documento;
     private PdfFont fuente;
     private PdfWriter writer;
-    private App app;
+    public App app;
+    public File file;
     
     Reporte(App app) {
         this.app = app;
-        File f = new File("informe-"+new Date());
-        direction = f.getAbsolutePath();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+        file = new File("informe-"+dateFormat.format(new Date())+".pdf");
+        direction = file.getAbsolutePath();
         this.writer = null;
         try {
             this.writer = new PdfWriter(direction);    // Instaciación clase escritura.        
@@ -68,7 +71,7 @@ public class Reporte {
     */
     public void addTituloPrincipal(String nroCuenta){
         List<TabStop> tabStops = new ArrayList<>();
-        nroCuenta = "Informe " + nroCuenta;
+        nroCuenta = app.getLanguage().getString("informe")+" " + nroCuenta;
         Rectangle pageSize = archivoPdf.getDefaultPageSize();
         float anchoDePagina = pageSize.getWidth() - documento.getLeftMargin() - documento.getRightMargin();
         tabStops.add(new TabStop(anchoDePagina / 2, TabAlignment.CENTER));
@@ -85,35 +88,34 @@ public class Reporte {
     * @param titular Nombre del titular de la cuenta.
     * @param cuenta Nro de cuenta.
     * @param saldoCuenta Saldo actual en la cuenta.
-    * @param mes_anho Fecha.
     */
-    public void addDatosCliente(String titular, String cuenta, String saldoCuenta, String mes_anho) {
+    public void addDatosCliente(String titular, String cuenta, String saldoCuenta) {
         Paragraph writeLinea = new Paragraph().setFont(fuente).setFontSize(16f);
         writeLinea.add(new Tab());
-        writeLinea.add("Cuenta: ");
+        writeLinea.add(app.getLanguage().getString("cuenta") + " ");
         writeLinea.add(new Tab());
        
         Paragraph writeTitular = new Paragraph().setFont(fuente).setFontSize(14f);
         writeTitular.add(new Tab());
-        writeTitular.add("Titular: " + titular);
+        writeTitular.add(app.getLanguage().getString("titular") + " " + titular);
         writeTitular.add(new Tab());
 
         
         Paragraph writeCuenta = new Paragraph().setFont(fuente).setFontSize(14f);
         writeCuenta.add(new Tab());
-        writeCuenta.add("Número Cuenta: " + cuenta);
+        writeCuenta.add(app.getLanguage().getString("nroCuenta") + " " + cuenta);
         writeCuenta.add(new Tab());
 
         
         Paragraph writeSaldo = new Paragraph().setFont(fuente).setFontSize(14f);
         writeSaldo.add(new Tab());
-        writeSaldo.add("Saldo Actual: " + saldoCuenta);
+        writeSaldo.add(app.getLanguage().getString("saldoActual") + " " + saldoCuenta);
         writeSaldo.add(new Tab());
 
 
         Paragraph writeFecha = new Paragraph().setFont(fuente).setFontSize(14f);
         writeFecha.add(new Tab());
-        writeFecha.add("Saldo Actual: " + saldoCuenta);
+        writeFecha.add(app.getLanguage().getString("fecha") + " " + new Date());
         writeFecha.add(new Tab());
 
         documento.add(writeLinea);
@@ -121,7 +123,7 @@ public class Reporte {
         documento.add(writeCuenta);
         documento.add(writeSaldo);
         documento.add(writeFecha);
-        documento.add(new Paragraph("\n\n"));
+        //documento.add(new Paragraph("\n\n"));
     }
     /**
     *Método público para agregar una nueva tabla al pdf.
@@ -130,9 +132,11 @@ public class Reporte {
      * @param datos datos con los que rellenar la tabla.
     */
     public void addTabla(String nombreTabla, String[] titulosColumnas, LinkedList<LinkedList<String>> datos) {
-        float [] ancho = {150F, 150F, 150F}; 
+        float [] ancho = new float[titulosColumnas.length];
+        for(int i = 0; i < titulosColumnas.length; i++)
+            ancho[i] = 450F / titulosColumnas.length;
         try {
-            Table tabla = private_addTabla(nombreTabla,titulosColumnas,datos,ancho);
+            Table tabla = private_addTabla(app.getLanguage().getString(nombreTabla),titulosColumnas,datos,ancho);
             this.documento.add(tabla);
             documento.add(new Paragraph("\n\n"));
         } catch (IOException e) {
@@ -158,18 +162,14 @@ public class Reporte {
         
         //Definimos los encabezados.
         for (String titulosColumna : titulosColumnas) {
-            tabla.addCell(new Cell().add(titulosColumna).setFont(fuente).setFontSize(16f));
+            tabla.addCell(new Cell().add(new Paragraph(titulosColumna)).setFont(fuente).setFontSize(16f));
         }
         
-        //Excepcion si no tienen la misma dimension.
-        //No olvidarme agregar!!!!!!!!!!
-        int size = datos.get(0).size();
-        while(size > 0) {
-            datos.forEach(dato -> {
-                tabla.addCell(new Cell().add(dato.remove()));
-            });            
-            size--;
-        }
+        datos.forEach(linea -> {
+            linea.forEach(campo -> {
+                tabla.addCell(new Cell().add(new Paragraph(campo)));
+            });
+        });
         return tabla;
     }
     

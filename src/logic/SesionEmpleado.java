@@ -38,7 +38,7 @@ public class SesionEmpleado extends Sesion {
             if(afectado == 1) {
                 //primero guardamos evidencia de la transaccion en la base de datos
                 Transferencia transferencia = new Transferencia(new CuentaCliente("", null, cuenta.getNroCuenta()),
-                        new CuentaCliente("", null, nrCuenta), Transferencia.DEPOSITO);
+                        new CuentaCliente("", null, nrCuenta), Transferencia.DEPOSITO, monto);
                 transferencia.setSesion(this);
                 transferencia.guardar();
                 

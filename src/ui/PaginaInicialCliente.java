@@ -39,6 +39,8 @@ public final class PaginaInicialCliente extends InnerGui {
         informeBtn.setPreferredSize(new Dimension(400, 100));
         informeBtn.setFont(new Font(titulo.getName(), Font.PLAIN, 30));
         informeBtn.setIcon(new ImageIcon("iconos/informe_32.png"));
+        informeBtn.setActionCommand(App.REPORTE);
+        informeBtn.addActionListener(app);
         lineas[3].add(informeBtn);
         pagarServicioBtn = new JButton(app.getLanguage().getString("pagarServicio"));
         pagarServicioBtn.setPreferredSize(new Dimension(400, 100));

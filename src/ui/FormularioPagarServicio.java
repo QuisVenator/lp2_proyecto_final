@@ -28,11 +28,7 @@ import logic.excepciones.SesionExpiradaException;
  */
 public final class FormularioPagarServicio extends InnerGui {   
     private final List<JPanel> lineas = new LinkedList<>();
-    private final List<JButton> servicioBtn = new LinkedList<>();
     private List<Servicio> serviciosDisponibles;
-    private final String[] path = {"servicio_ejemplo1_32.png", "servicio_ejemplo2_32.png", "servicio_ejemplo3_32.png"};
-    private final String[] nombre = {"Servicio 1", "Servicio 2", "Servicio 3"};
-    private final String[] monto = {"100.000", "20.000", "7.000"};
     private JLabel titulo;
     
     private final App app;
@@ -79,7 +75,6 @@ public final class FormularioPagarServicio extends InnerGui {
                     app.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, App.CERRAR_SESION));
                 }
             });
-            servicioBtn.add(btn);
             
             JPanel linea = new JPanel();
             linea.add(btn);

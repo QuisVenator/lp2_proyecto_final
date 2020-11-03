@@ -37,7 +37,7 @@ public final class FormularioDeposito extends InnerGui {
             try {
                 ((SesionEmpleado)app.sesion).deposito(Double.parseDouble(montoText.getText()), Integer.parseInt(cuentaText.getText()));
             } catch (SesionExpiradaException ex) {
-                Logger.getLogger(FormularioDeposito.class.getName()).log(Level.SEVERE, null, ex);
+                app.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, App.CERRAR_SESION));
             }
         });
         

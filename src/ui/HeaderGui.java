@@ -80,6 +80,8 @@ public final class HeaderGui extends InnerGui {
             case HEADER_CLIENTE:
                 informeBtn = new JButton(app.getLanguage().getString("informe"));
                 informeBtn.setIcon(new ImageIcon("iconos/informe_16.png"));
+                informeBtn.setActionCommand(App.REPORTE);
+                informeBtn.addActionListener(app);
                 menu.add(informeBtn);
                 pagarServicioBtn = new JButton(app.getLanguage().getString("pagarServicio"));
                 pagarServicioBtn.setActionCommand(App.FORMULARIO_PAGAR_SERVICIO);
