@@ -7,10 +7,6 @@ import logic.Servicio;
 import logic.SesionEmpleado;
 import logic.excepciones.SesionExpiradaException;
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
 public final class FormularioAgregarServicio extends InnerGui {
     private final JButton agregarBtn;
     private final JTextField cuentaText, montoText, descripcionText, nombreText, iconoText;
@@ -45,6 +41,7 @@ public final class FormularioAgregarServicio extends InnerGui {
         titulo = new JLabel(app.getLanguage().getString("agregarServicio"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
         
+        //agregar funcionalidad al boton
         agregarBtn.addActionListener((ActionEvent e) ->{
             try {
                 if(nombreText.getText().equals("")) {

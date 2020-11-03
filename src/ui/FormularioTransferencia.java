@@ -6,10 +6,6 @@ import javax.swing.*;
 import logic.SesionCliente;
 import logic.excepciones.SesionExpiradaException;
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
 public final class FormularioTransferencia extends InnerGui {
     private final JButton efectuarTransferencia;
     private final JTextField cuentaText, montoText;
@@ -36,6 +32,7 @@ public final class FormularioTransferencia extends InnerGui {
         titulo = new JLabel(app.getLanguage().getString("transferencia"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
         
+        //agregar funcionalidad al boton
         efectuarTransferencia.addActionListener((ActionEvent e) -> {
             try {
                 ((SesionCliente)app.sesion).generarTransferencia(Integer.parseInt(cuentaText.getText()), 

@@ -4,10 +4,8 @@ package idiomas;
 
 import java.util.ListResourceBundle;
 
-
 /**
- *
- * @author Manuel René Pauls Toews
+ * El idioma predeterminado del programa
  */
 public class language extends ListResourceBundle {
     private static final Object[][] CONTENTS = {
@@ -105,7 +103,7 @@ public class language extends ListResourceBundle {
         {"id",                              "ID"},
         {"transferenciasRealizadas",        "Transferencias Realizadas"},
         {"transferenciasRecibidas",         "Transferencias Recibidas"},
-        {"transferenciasAServicios",        "Transferencias a Servicios"},
+        {"transferenciasAServicios",        "Transferencias a Servicios"}
     };
     @Override
     protected Object[][] getContents() {

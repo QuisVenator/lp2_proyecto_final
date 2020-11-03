@@ -7,10 +7,6 @@ import logic.Servicio;
 import logic.SesionEmpleado;
 import logic.excepciones.SesionExpiradaException;
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
 public final class FormularioEliminarServicio extends InnerGui {
     private final JButton eliminarBtn;
     private final JTextField codigoText;
@@ -28,6 +24,7 @@ public final class FormularioEliminarServicio extends InnerGui {
         titulo = new JLabel(app.getLanguage().getString("eliminarServicio"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
         
+        //agregar funcionalidad al boton
         eliminarBtn.addActionListener((ActionEvent e) ->{
             try {
                 Servicio servicio = new Servicio(0, 0, codigoText.getText());

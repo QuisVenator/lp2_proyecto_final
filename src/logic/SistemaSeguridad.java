@@ -2,14 +2,12 @@
 package logic;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  *
  * @author Manuel René Pauls Toews
  */
 public class SistemaSeguridad {
-    //TODO inicializar con programa
     public static int T_MAX_SESION_CLIENTE;
     public static int T_MAX_SESION_EMPLEADO;
     

@@ -2,21 +2,10 @@ package ui;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.security.SecureRandom;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
-import logic.Cliente;
-import logic.Cuenta;
-import logic.CuentaCliente;
 import logic.SesionEmpleado;
 import logic.excepciones.SesionExpiradaException;
-import password_hashing.PasswordStorage;
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
 public final class FormularioAgregarCuenta extends InnerGui {
     private final JButton agregarBtn;
     private final JTextField ciText, apellidoText, correoText, telText, direccionText, accesoText, nombreText;
@@ -58,6 +47,7 @@ public final class FormularioAgregarCuenta extends InnerGui {
         titulo = new JLabel(app.getLanguage().getString("agregarCuenta"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
         
+        //agregar funcionalidad al boton
         agregarBtn.addActionListener((ActionEvent e) -> {
             try {
                 int doc = Integer.parseInt(ciText.getText());

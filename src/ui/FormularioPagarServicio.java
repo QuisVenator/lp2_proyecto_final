@@ -7,25 +7,16 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 import logic.Servicio;
 import logic.SesionCliente;
 import logic.excepciones.SesionExpiradaException;
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
 public final class FormularioPagarServicio extends InnerGui {   
     private final List<JPanel> lineas = new LinkedList<>();
     private List<Servicio> serviciosDisponibles;
@@ -36,6 +27,7 @@ public final class FormularioPagarServicio extends InnerGui {
     public FormularioPagarServicio(App app) {
         this.app = app;
         
+        //traer servicios de base de datos
         try {
             serviciosDisponibles = ((SesionCliente)app.sesion).obtenerListaServicio();
         } catch (SesionExpiradaException ex) {
@@ -56,6 +48,7 @@ public final class FormularioPagarServicio extends InnerGui {
         lineas.get(1).setMaximumSize(new Dimension(1920, 80));
         lineas.get(1).add(titulo);
         
+        //para cada servicio crear un elemento en ventana y darle funcionalidad
         for(Servicio servicio : serviciosDisponibles) {
             JButton btn = new JButton(String.format("%10s%-10s - %-15s", "", servicio.getMonto(), servicio.getNombre()));
             btn.setIcon(new ImageIcon("iconos/"+servicio.getIconoPath()));

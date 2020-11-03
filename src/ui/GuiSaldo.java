@@ -3,16 +3,10 @@ package ui;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 import logic.SesionCliente;
 import logic.excepciones.SesionExpiradaException;
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
 public final class GuiSaldo extends InnerGui {
     private JPanel[] lineas = new JPanel[6];
     private final App app;

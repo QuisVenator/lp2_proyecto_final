@@ -1,10 +1,6 @@
 
 package logic;
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
 public class CuentaEmpleado extends Cuenta {
     public CuentaEmpleado(Empleado titular, String contrasenha) {
         super(titular, contrasenha);

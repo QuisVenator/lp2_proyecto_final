@@ -10,8 +10,7 @@ import password_hashing.PasswordStorage.InvalidHashException;
 import ui.Mensaje;
 
 /**
- *
- * @author Manuel René Pauls Toews
+ * Específicamente para Cuentas de clientes
  */
 public class CuentaCliente extends Cuenta {
     private double saldo;
@@ -27,17 +26,33 @@ public class CuentaCliente extends Cuenta {
         pinTransHash = transHash;
     }
     
+    /**
+     * Incrementa el saldo de este objeto.<br>
+     * NO cambia base de datos
+     * @param monto cantidad a agregar
+     * @return nuevo saldo en este objeto
+     */
     public double incrementarSaldo(double monto) {
-        //TODO ver si es necesario
-        throw new UnsupportedOperationException();
+        return this.saldo += monto;
     }
+    
+    /**
+     * Decrementa el saldo de este objeto.<br>
+     * NO cambia base de datos
+     * @param monto cantidad a restar
+     * @return nuevo saldo en este objeto
+     */
     public double decrementarSaldo(double monto) {
-        //TODO ver si es necesario
-        throw new UnsupportedOperationException();
+        return this.saldo -= monto;
     }
     public double setSaldo(double monto) {
         return saldo = monto;
     }
+    /**
+     * Retorna saldo en este objeto, NO se comunica con base de datos.<br>
+     * Ver <code>SesionCliente.obtenerSaldo()</code> para obtener de base de datos.
+     * @return 
+     */
     public double getSaldo() {
         return saldo;
     }

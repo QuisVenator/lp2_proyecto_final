@@ -21,11 +21,8 @@ import logic.excepciones.AuthentificationException;
 import logic.excepciones.BlockedAccountException;
 import logic.excepciones.SesionExpiradaException;
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
 public class App implements ActionListener {
+    //constatentes de acciones
     public static final String FORMULARIO_INICIO_SESION = "incicio sesion";
     public static final String FORMULARIO_PAGAR_SERVICIO = "pago servicio";
     public static final String FORMULARIO_TRANSFERENCIA = "transferencia";
@@ -51,6 +48,11 @@ public class App implements ActionListener {
         outer = new OuterGui(this);
     }
     
+    /**
+     * Retorna idioma utilizado.<br>
+     * Detecta idioma de sistema si no esta configurado todavía y lo intenta configurar. Si no es soportado usa español
+     * @return 
+     */
     public ResourceBundle getLanguage() {
         if(languages == null) {
             languages = ListResourceBundle.getBundle("idiomas.language");

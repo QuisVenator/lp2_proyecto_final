@@ -7,13 +7,9 @@ import java.sql.SQLException;
 import java.util.Random;
 import ui.Mensaje;
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
 public class Servicio extends DBObject {
     private String nombre, descripcion, iconoPath;
-    private int cuentaNr;
+    private int cuentaNr; //cada servicio se relaciona a una cuenta en la cual se depositan los pagos
     private double monto;
     
     public Servicio(int cuentaNr, double monto) {

@@ -5,13 +5,8 @@ import java.awt.*;
 import java.text.MessageFormat;
 import javax.swing.*;
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
 public final class PaginaInicialCliente extends InnerGui {
     private final JPanel[] lineas = new JPanel[8];
-    private String nombre = "Jane Doe";
     private JLabel titulo, titulo2;
     private JButton transferenciaBtn, pagarServicioBtn, informeBtn, saldoBtn;
     private final App app;

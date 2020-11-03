@@ -6,10 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import ui.Mensaje;
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
 public class Persona extends DBObject {
     private String nombre, apellido, correo, direccion, numeroTel;
     private int ci;

@@ -1,10 +1,6 @@
 
 package logic;
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
 public abstract class DBObject {
     protected Sesion sesion;
     
@@ -14,5 +10,9 @@ public abstract class DBObject {
     public Sesion getSesion() {
         return sesion;
     }
+    /**
+     * Guarda objeto en base de datos.
+     * @return 0 en caso de éxito, diferentes códigos de error en caso contrario
+     */
     public abstract int guardar();
 }

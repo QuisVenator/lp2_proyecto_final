@@ -3,14 +3,9 @@ package ui;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
-import logic.Servicio;
 import logic.SesionEmpleado;
 import logic.excepciones.SesionExpiradaException;
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
 public final class FormularioDesbloquearCuenta extends InnerGui {
     private final JButton desbloquearBtn;
     private final JTextField cuentaText;
@@ -28,6 +23,7 @@ public final class FormularioDesbloquearCuenta extends InnerGui {
         titulo = new JLabel(app.getLanguage().getString("desbloquearCuenta"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
         
+        //agregar funcionalidad al boton
         desbloquearBtn.addActionListener((ActionEvent e) ->{
             try {
                 ((SesionEmpleado)app.sesion).desbloquearCuenta(Integer.parseInt(cuentaText.getText()));

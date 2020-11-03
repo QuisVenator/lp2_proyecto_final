@@ -6,12 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import ui.Mensaje;
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
 public class Empleado extends Persona {
-    private int nivAcceso;
+    private int nivAcceso; //actualmente se usa solo nivel 0 y 1, pero en un futuro podría ser utilizado para distinguir entre categorías de Empleados como Admin y Soporte
     
     public Empleado(int nivel, String nombre, String apellido, int ci) {
         super(nombre, apellido, ci);

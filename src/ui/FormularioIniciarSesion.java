@@ -3,10 +3,6 @@ package ui;
 import java.awt.*;
 import javax.swing.*;
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
 public final class FormularioIniciarSesion extends InnerGui {
     private final JButton iniciarSesion;
     private final JTextField cuentaText;

@@ -2,32 +2,25 @@
 package logic;
 
 import ui.Reporte;
-import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import logic.excepciones.SesionExpiradaException;
 import password_hashing.PasswordStorage;
 import ui.Mensaje;
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
 public class SesionCliente extends Sesion {
     
     @Override
     protected void verificarTiempoSesion() {
-        if(viva && tiempoCreacion.getTime() - System.currentTimeMillis() > SistemaSeguridad.T_MAX_SESION_CLIENTE) {
+        if(viva && System.currentTimeMillis() - tiempoCreacion.getTime() > SistemaSeguridad.T_MAX_SESION_CLIENTE) {
             destruirSesion();
+            viva = false;
         }
     }
 
@@ -58,6 +51,11 @@ public class SesionCliente extends Sesion {
         }
     }
     
+    /**
+     * Obtiene la lista de servicio que existen en la base de datos
+     * @return 
+     * @throws SesionExpiradaException 
+     */
     public List<Servicio> obtenerListaServicio() throws SesionExpiradaException {
         if(!marcarActividad()){ //marcar actividad para que no se cierre la sesión por inactividad y verificar si no se cerró antes
             throw new SesionExpiradaException();
@@ -161,6 +159,12 @@ public class SesionCliente extends Sesion {
         }
     }
     
+    /**
+     * Genera un reporte en formato de PDF
+     * @param report el pdf a llenar con datos
+     * @return 0 en caso de éxito, código error en otro caso
+     * @throws SesionExpiradaException 
+     */
     public int generarReporte(Reporte report) throws SesionExpiradaException {
         report.addTituloPrincipal(Integer.toString(getCuenta().getNroCuenta()));
         report.addDatosCliente(getCuenta().getTitular().getNombreCompleto(), Integer.toString(getCuenta().getNroCuenta()), String.format("%.2f", obtenerSaldo()));
@@ -172,6 +176,7 @@ public class SesionCliente extends Sesion {
             report.app.getLanguage().getString("monto")
         };
         
+        //traer transferencias de esta cuenta a otra de base de datos
         try(PreparedStatement stmt = getConexion().getConnection().prepareStatement("SELECT * FROM Transferencia WHERE envia = ? AND tipo = ?;")) {
             stmt.setInt(1, getCuenta().getNroCuenta());
             stmt.setInt(2, Transferencia.ENTRE_CUENTAS);
@@ -188,9 +193,11 @@ public class SesionCliente extends Sesion {
             report.cerrar();
             return -3;
         }
-        report.addTabla("transferenciasRealizadas", titulos, transferencias);
+        if(transferencias.size() > 0)
+            report.addTabla("transferenciasRealizadas", titulos, transferencias);
         
         
+        //traer transferencias de otra cuenta a esta de base de datos
         transferencias = new LinkedList<>();
         try(PreparedStatement stmt = getConexion().getConnection().prepareStatement("SELECT * FROM Transferencia WHERE recibe = ? AND tipo = ?;")) {
             stmt.setInt(1, getCuenta().getNroCuenta());
@@ -211,7 +218,8 @@ public class SesionCliente extends Sesion {
         if(transferencias.size() > 0)
             report.addTabla("transferenciasRecibidas", titulos, transferencias);
         
-        
+        //traer pagos de servicio realizados con esta cuenta de base de datos
+        //actualizar títulos de columnas
         titulos = new String[]{
             report.app.getLanguage().getString("id"),
             report.app.getLanguage().getString("monto")
@@ -236,7 +244,7 @@ public class SesionCliente extends Sesion {
         if(transferencias.size() > 0)
             report.addTabla("transferenciasAServicios", titulos, transferencias);
         
-        
+        //traer depósitos en esta cuenta
         transferencias = new LinkedList<>();
         try(PreparedStatement stmt = getConexion().getConnection().prepareStatement("SELECT * FROM Transferencia WHERE recibe = ? AND tipo = ?;")) {
             stmt.setInt(1, getCuenta().getNroCuenta());

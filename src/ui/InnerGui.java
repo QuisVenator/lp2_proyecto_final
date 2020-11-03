@@ -3,10 +3,9 @@ package ui;
 
 import javax.swing.JPanel;
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
 public class InnerGui extends JPanel {
+    /**
+     * Usado para cambiar el idioma reiniciar la aplicación
+     */
     public void languageReload(){}
 }

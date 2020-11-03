@@ -4,10 +4,6 @@ package ui;
 import java.awt.*;
 import javax.swing.*;
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
 public final class HeaderGui extends InnerGui {
     public static final int HEADER_VACIO = 0;
     public static final int HEADER_CLIENTE = 1;

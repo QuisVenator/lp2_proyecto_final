@@ -2,16 +2,10 @@ package ui;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 import logic.SesionEmpleado;
 import logic.excepciones.SesionExpiradaException;
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
 public final class FormularioDeposito extends InnerGui {
     private final JButton depositar;
     private final JTextField cuentaText, montoText;
@@ -33,6 +27,7 @@ public final class FormularioDeposito extends InnerGui {
         titulo = new JLabel(app.getLanguage().getString("hacerDeposito"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
         
+        //agregar funcionalidad al boton
         depositar.addActionListener((ActionEvent e) -> {
             try {
                 ((SesionEmpleado)app.sesion).deposito(Double.parseDouble(montoText.getText()), Integer.parseInt(cuentaText.getText()));

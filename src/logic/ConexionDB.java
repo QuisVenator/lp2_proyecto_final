@@ -9,8 +9,8 @@ import password_hashing.PasswordStorage;
 import password_hashing.PasswordStorage.CannotPerformOperationException;
 
 /**
- *
- * @author Manuel René Pauls Toews
+ * Mantienen una conexion a base de datos.<br>
+ * Como es una simulación con Base de Datos en archivo, hemos decidido por no cerrar la conexión mientras esta corriendo el programa
  */
 public class ConexionDB {
     private Connection conn;
@@ -23,6 +23,10 @@ public class ConexionDB {
         }
     }
     
+    /**
+     * Crea la conexión si no existe o reutiliza una que ya fue creada
+     * @return conexión a base de datos
+     */
     public Connection getConnection() {
         if(conn != null) return conn;
         try {
@@ -34,6 +38,11 @@ public class ConexionDB {
         }
     }
     
+    /**
+     * Conecta a base de datos si existe.<br>
+     * Si no existe la crea con datos de prueba.
+     * @throws SQLException 
+     */
     private void connect() throws SQLException {
         boolean dbNueva;
         File f = new File("simulacion_web_banking.db");
@@ -44,6 +53,9 @@ public class ConexionDB {
         if(dbNueva) crearDbPrueba();
     }
     
+    /**
+     * Crea una nueva base de datos con datos prueba.
+     */
     private void crearDbPrueba(){
         System.out.println("Creando base de datos para pruebas...");
         String[] stmtStrings = {

@@ -4,10 +4,6 @@ package idiomas;
 import java.util.ListResourceBundle;
 
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
 public class language_en extends ListResourceBundle {
     private static final Object[][] CONTENTS = {
         {"iniciarSesion",                   "Login"},
@@ -51,7 +47,59 @@ public class language_en extends ListResourceBundle {
         {"bienvenidoNombre",                "Welcome {0}"},
         {"saldo",                           "Balance"},
         {"queDeseaHacer",                   "What are you looking for?"},
-        {"idiomaNombre",                    "English"}
+        {"idiomaNombre",                    "English"},
+        {"loginNoExitoso",                  "Couldn't log in"},
+        {"loginErrorMessage",               "Couldn't log in. Please check your details and  try again."},
+        {"dbErrorTitulo",                   "Database error"}, 
+        {"dbErrorMensaje",                  "Couldn't performs the operation. Verify your data and try again"},
+        {"pinTransferenciaNoValido",        "Transfer pin couldn't be confirm! Please try again."},
+        {"pinNoValidoTitulo",               "Invalid pin"},
+        {"saldoInsuficienteTitulo",         "Insufficient balance"},
+        {"saldoInsuficiente",               "Insufficient balance to perform the transaction"},
+        {"servicioPagadoTitulo",            "Service was paid"},
+        {"servicioPagado",                  "You have paid for the service \"{2}\" with your account number {1} for the amount of {3}.\nDate and hour: {0}"},
+        {"transferenciaRealizadaTitulo",    "Transfer done"},
+        {"transferenciaRealizada",          "You have transfered {3}\nFrom: {1}\nTo: {2}\nDate and Hour: {0}"},
+        {"pdfOpenErrorTitulo",              " Error while opening the PDF"},
+        {"pdfOpenError",                    "Unable to open the tutorial. Please check you have an installed aplication  to open pdf archives."},
+        {"inputNoCorrectoTitulo",           "Incorrect entry"},
+        {"inputNoCorrecto",                 "The system couldn't interpret one of your entries. Please check all fields to try again."},
+        {"cuentaNoEncontradaTitulo",        "Account not found"},
+        {"cuentaNoEncontrada",              "Account not found, please verify all fields."},
+        {"tutorialArchivo",                 "FAQ_Lp2_EN.pdf"},
+        {"depositoConfirmacionTitulo",      "Deposit done"},
+        {"depositoConfirmacion",            "You have deposited {2}\nIn the account: {1}\nDate and Hour: {0}"},
+        {"desbloqueoConfirmacionTitulo",    "Account unblocked"},
+        {"desbloqueoConfirmacion",          "The account has been unblocked {0}"},
+        {"cuentaYaExisteTitulo",            "Account already exist"},
+        {"cuentaYaExiste",                  "The account was not added, because it already exists!"},
+        {"servicioYaExisteTitulo",          "Service already exist"},
+        {"servicioYaExiste",                "The service was not added, because it already exists!"},
+        {"servicioNoExisteTitulo",          "Service does not exist"},
+        {"servicioNoExiste",                "Couldn't find this service"},
+        {"cuentaNoExisteTitulo",            "Account does not exist"},
+        {"cuentaNoExiste",                  "Couldn't find this account"},
+        {"borrarPropioErrorTitulo",         "Deleting own account"},
+        {"borrarPropioError",               "You are not allowed to delete your own account!"},
+        {"cuentaCreadaTitulo",              "Account created"},
+        {"cuentaCreada",                    "Account successfully created.\nAccount Number: {0}\nPIN: {1}\nTransfer Pin: {2}"},
+        {"servicioCreadoTitulo",            "Service created"},
+        {"servicioCreado",                  "Service successfully created.\nAccount Number: {0}\nName: {1}\nAmount: {2}"},
+        {"cuentaEliminadaTitulo",           "Account deleted"},
+        {"cuentaEliminada",                 "Account has been deleted {0}"},
+        {"servicioEliminadoTitulo",         "Service deleted"},
+        {"servicioEliminado",               "Service has been deleted {0}"},
+        {"cuentaBloqueadaError",            "Your account is blocked"},
+        {"montoNegativoTitulo",             "Negative balance"},
+        {"montoNegativo",                   "Negative amounts are not allowed"},
+        {"cuenta",                          "Account"},
+        {"titular",                         "Account Holder"},
+        {"fecha",                           "Date"},
+        {"informe",                         "Report"},
+        {"id",                              "ID"},
+        {"transferenciasRealizadas",        "Transfers made"},
+        {"transferenciasRecibidas",         "Incoming Transfers"},
+        {"transferenciasAServicios",        "Transfers to Services"}
     };
     @Override
     protected Object[][] getContents() {

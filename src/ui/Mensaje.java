@@ -2,14 +2,9 @@
 package ui;
 
 import java.text.MessageFormat;
-import java.util.Arrays;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
 public class Mensaje {
     public static App app;
     

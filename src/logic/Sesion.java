@@ -1,6 +1,5 @@
 package logic;
 
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import password_hashing.PasswordStorage;
 import password_hashing.PasswordStorage.*;
@@ -8,10 +7,6 @@ import java.sql.*;
 import java.util.HashMap;
 import logic.excepciones.*;
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
 public abstract class Sesion {
     
     private ConexionDB conexionDB;
@@ -54,6 +49,7 @@ public abstract class Sesion {
                     sesion.cuenta = cuenta;
                     sesion.viva = true;
                     sesion.tiempoCreacion = new java.util.Date();
+                    INTENTOS_FALLIDOS.remove(nroCuenta);
                     return sesion;
                 }
                 else {
@@ -90,6 +86,9 @@ public abstract class Sesion {
         return null;
     }
     
+    /**
+     * Destruye la sesión, cerrando su conexión a la base de datos
+     */
     public void destruirSesion() {
         try {
             if(conexionDB != null && conexionDB.getConnection() != null) {
@@ -97,7 +96,7 @@ public abstract class Sesion {
                 conexionDB = null;
             }
         } catch(SQLException e) {
-            
+            System.out.println(e.getMessage());
         } finally {
             viva = false;
         }
@@ -105,6 +104,12 @@ public abstract class Sesion {
     
     protected abstract void verificarTiempoSesion();
     
+    /**
+     * Usa una librería revisada por expertos, open-source para hashear el String pasado.<br>
+     * Ver <code>PassordStorage</code> para más información.
+     * @param contrasenha cadena a hashear
+     * @return una cadena que representa una hash PBKDF2 de la cadena original
+     */
     protected String hash(String contrasenha) {
         String hash;
         try {
@@ -123,6 +128,10 @@ public abstract class Sesion {
         return viva;
     }
     
+    /**
+     * Marcar actividad para evitar que se cierre por inactividad
+     * @return true si sigue viva la sesión, false en caso contrario
+     */
     public boolean marcarActividad() {
         if(esViva()) tiempoCreacion.setTime(System.currentTimeMillis());
         return esViva();
@@ -135,7 +144,13 @@ public abstract class Sesion {
     public Cuenta getCuenta() {
         return cuenta;
     }
-    
+
+    /**
+     * Utilizada para bloquear la cuenta después de X intentos fallidos de ingresar
+     * @param nrCuenta el número de la cuenta a bloquear
+     * @param conexionDB la conexion usada para intentar ingresar
+     * @throws SQLException en caso de que ocurrió un error en la base de datos
+     */
     private static void bloquearCuenta(int nrCuenta, ConexionDB conexionDB) throws SQLException {
         String query = "UPDATE Cuenta SET estado = 1 WHERE nrCuenta = ?";
         PreparedStatement stmt = conexionDB.getConnection().prepareStatement(query);

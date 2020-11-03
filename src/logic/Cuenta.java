@@ -4,12 +4,10 @@ package logic;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import ui.Mensaje;
 
 /**
- *
- * @author Manuel René Pauls Toews
+ * Clase abstracta con implementaciónes comunes en CuentaCliente y CuentaEmpleado
  */
 public abstract class Cuenta extends DBObject {
     private int nrCuenta;

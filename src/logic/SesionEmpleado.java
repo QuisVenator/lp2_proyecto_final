@@ -1,15 +1,12 @@
 
 package logic;
 
-import java.awt.event.ActionEvent;
 import java.security.SecureRandom;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import logic.excepciones.SesionExpiradaException;
 import password_hashing.PasswordStorage;
 import password_hashing.PasswordStorage.CannotPerformOperationException;
@@ -42,6 +39,7 @@ public class SesionEmpleado extends Sesion {
                 transferencia.setSesion(this);
                 transferencia.guardar();
                 
+                //imprimir mensaje confirmaión con datos
                 Object[] detalles = {new Date(), nrCuenta, monto};
                 Mensaje.crearMensajeConfirmacion("depositoConfirmacionTitulo", "depositoConfirmacion", detalles);
                 return 0;
@@ -73,6 +71,7 @@ public class SesionEmpleado extends Sesion {
                 log.setSesion(this);
                 log.guardar();
                 
+                //imprimir mensaje confirmaión con datos
                 Object[] detalles = {nrCuenta};
                 Mensaje.crearMensajeConfirmacion("desbloqueoConfirmacionTitulo", "desbloqueoConfirmacion", detalles);
                 return 0;
@@ -86,12 +85,21 @@ public class SesionEmpleado extends Sesion {
         }
     }
     
+    /**
+     * Agrega una nueva cuenta a la base de datos. Supone que el titular ya existe.<br>
+     * Va imprimir un mensaje de confirmación con el número de cuenta y los pines en caso de éxito
+     * @param doc ci del titular
+     * @param niv nivel de acceso
+     * @return 0 en caso de éxito, código error en otro caso
+     * @throws SesionExpiradaException 
+     */
     public int agregarCuenta(int doc, int niv) throws SesionExpiradaException{
         if(!marcarActividad()){ //marcar actividad para que no se cierre la sesión por inactividad y verificar si no se cerró antes
             throw new SesionExpiradaException();
         }
         
         try {
+            //generar pin de acceso
             SecureRandom random = new SecureRandom();
             char[] pin = new char[4];
             for(int i = 0; i < pin.length; i++) {
@@ -103,6 +111,7 @@ public class SesionEmpleado extends Sesion {
             String transHash = null;
             char[] pinTrans = null;
             if(niv == 0){
+                //generar pin transferencia si es cuenta cliente
                 pinTrans = new char[5];
                 for(int i = 0; i < pinTrans.length; i++) {
                     pinTrans[i] = Integer.toString(random.nextInt(10)).charAt(0);
@@ -123,6 +132,7 @@ public class SesionEmpleado extends Sesion {
             int nroCuenta = rs.getInt(1);
             stmt.close();
             
+            //imprimir mensaje confirmaión con datos
             Object[] informacion = {nroCuenta, new String(pin), pinTrans != null ? new String(pinTrans) : "No tiene"};
             Mensaje.crearMensajeConfirmacion("cuentaCreadaTitulo", "cuentaCreada", informacion);
             return 0;
@@ -233,6 +243,18 @@ public class SesionEmpleado extends Sesion {
         return 1;
     }
     
+    /**
+     * Agrega persona a base de datos, si no existe todavía. Deberá ser llamada antes de crear una cuenta
+     * @param documento
+     * @param nombre
+     * @param apellido
+     * @param telefono
+     * @param direccion
+     * @param correo
+     * @param acceso
+     * @return 0 en caso de éxito, código error en caso contrario
+     * @throws SesionExpiradaException 
+     */
     public int agregarPersona(int documento, String nombre, String apellido, String telefono, String direccion, String correo, int acceso) throws SesionExpiradaException {
         if(!marcarActividad()){ //marcar actividad para que no se cierre la sesión por inactividad y verificar si no se cerró antes
             throw new SesionExpiradaException();
@@ -250,6 +272,7 @@ public class SesionEmpleado extends Sesion {
             return -3;
         }
         
+        //no existe, le agregamos
         String query = "INSERT INTO Persona (nombre, apellido, correo, numeroTel, direccion, ci, nivAcceso) VALUES "
                 + "(?, ?, ?, ?, ?, ?, ?);";
         try(PreparedStatement stmt = getConexion().getConnection().prepareStatement(query)) {
@@ -270,8 +293,9 @@ public class SesionEmpleado extends Sesion {
     
     @Override
     protected void verificarTiempoSesion() {
-        if(viva && tiempoCreacion.getTime() - System.currentTimeMillis() > SistemaSeguridad.T_MAX_SESION_CLIENTE) {
+        if(viva && System.currentTimeMillis() - tiempoCreacion.getTime() > SistemaSeguridad.T_MAX_SESION_CLIENTE) {
             destruirSesion();
+            viva = false;
         }
     }
 }

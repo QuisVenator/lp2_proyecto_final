@@ -3,10 +3,6 @@ package ui;
 import java.awt.*;
 import javax.swing.*;
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
 public final class FooterGui extends InnerGui {
     private final App app;
     

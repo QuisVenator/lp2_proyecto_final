@@ -8,10 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import ui.Mensaje;
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
+
 public final class Transferencia extends DBObject {
     public static final int ENTRE_CUENTAS = 1;
     public static final int SERVICIO = 2;

@@ -6,10 +6,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
 public final class OuterGui extends JFrame {
     private final JPanel contentPanel;
     private InnerGui innerGui;

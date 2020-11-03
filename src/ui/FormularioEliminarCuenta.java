@@ -7,10 +7,6 @@ import logic.CuentaCliente;
 import logic.SesionEmpleado;
 import logic.excepciones.SesionExpiradaException;
 
-/**
- *
- * @author Manuel René Pauls Toews
- */
 public final class FormularioEliminarCuenta extends InnerGui {
     private final JButton eliminarBtn;
     private final JTextField cuentaText;
@@ -28,6 +24,7 @@ public final class FormularioEliminarCuenta extends InnerGui {
         titulo = new JLabel(app.getLanguage().getString("eliminarCuenta"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
         
+        //agregar funcionalidad al boton
         eliminarBtn.addActionListener((ActionEvent e) -> {
             try{
                 ((SesionEmpleado)app.sesion).eliminarCuenta(new CuentaCliente(null, null, Integer.parseInt(cuentaText.getText())));

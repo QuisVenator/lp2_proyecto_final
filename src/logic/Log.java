@@ -8,8 +8,8 @@ import java.util.Date;
 import ui.Mensaje;
 
 /**
- *
- * @author Manuel René Pauls Toews
+ * Objeto usado para guardar un historial de acciones en base de datos.
+ * @author pauls_1x1baaf
  */
 public class Log extends DBObject {
     private String tipo, descripcion;
