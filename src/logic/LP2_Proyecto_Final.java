@@ -24,7 +24,7 @@ public class LP2_Proyecto_Final {
                 SistemaSeguridad.T_MAX_SESION_EMPLEADO = 300000;
             } else {
                 SistemaSeguridad.T_MAX_SESION_CLIENTE = rs.getInt("T_MAX_SESION_CLIENTE");
-                SistemaSeguridad.T_MAX_SESION_CLIENTE = rs.getInt("T_MAX_SESION_ADMIN");
+                SistemaSeguridad.T_MAX_SESION_EMPLEADO = rs.getInt("T_MAX_SESION_ADMIN");
             }
         } catch (SQLException ex) {
             SistemaSeguridad.T_MAX_SESION_CLIENTE = 60000;

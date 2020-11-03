@@ -133,6 +133,7 @@ public abstract class Sesion {
      * @return true si sigue viva la sesión, false en caso contrario
      */
     public boolean marcarActividad() {
+        esViva();
         if(esViva()) tiempoCreacion.setTime(System.currentTimeMillis());
         return esViva();
     }

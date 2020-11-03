@@ -76,6 +76,19 @@ public class App implements ActionListener {
                 outer.mostrarContenido(new FormularioIniciarSesion(this));
                 outer.getHeader().setHeader(HeaderGui.HEADER_VACIO);
                 break;
+            case CAMBIAR_LENGUAJE:
+                if(!languages.getString("idiomaNombre").equals(((JComboBox)e.getSource()).getSelectedItem())) {
+                    setLanguage(((JComboBox)e.getSource()).getSelectedIndex());
+                    outer.changeLanguage();
+                }
+                break;
+        }
+        
+        if(sesion != null && !sesion.marcarActividad()){ //marcar actividad para que no se cierre la sesión por inactividad y verificar si no se cerró antes
+            actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, App.CERRAR_SESION));
+            return;
+        }
+        switch(e.getActionCommand()) {
             case FORMULARIO_PAGAR_SERVICIO:
                 outer.mostrarContenido(new FormularioPagarServicio(this));
                 break;
@@ -102,12 +115,6 @@ public class App implements ActionListener {
                 break;
             case FORMULARIO_DESBLOQUEAR_CUENTA:
                 outer.mostrarContenido(new FormularioDesbloquearCuenta(this));
-                break;
-            case CAMBIAR_LENGUAJE:
-                if(!languages.getString("idiomaNombre").equals(((JComboBox)e.getSource()).getSelectedItem())) {
-                    setLanguage(((JComboBox)e.getSource()).getSelectedIndex());
-                    outer.changeLanguage();
-                }
                 break;
             case TUTORIAL:
                 if (Desktop.isDesktopSupported()) {

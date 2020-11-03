@@ -18,6 +18,7 @@ public class SesionCliente extends Sesion {
     
     @Override
     protected void verificarTiempoSesion() {
+        long diff = System.currentTimeMillis() - tiempoCreacion.getTime();
         if(viva && System.currentTimeMillis() - tiempoCreacion.getTime() > SistemaSeguridad.T_MAX_SESION_CLIENTE) {
             destruirSesion();
             viva = false;
@@ -166,6 +167,10 @@ public class SesionCliente extends Sesion {
      * @throws SesionExpiradaException 
      */
     public int generarReporte(Reporte report) throws SesionExpiradaException {
+        if(!marcarActividad()){ //marcar actividad para que no se cierre la sesión por inactividad y verificar si no se cerró antes
+            throw new SesionExpiradaException();
+        }
+        
         report.addTituloPrincipal(Integer.toString(getCuenta().getNroCuenta()));
         report.addDatosCliente(getCuenta().getTitular().getNombreCompleto(), Integer.toString(getCuenta().getNroCuenta()), String.format("%.2f", obtenerSaldo()));
         
