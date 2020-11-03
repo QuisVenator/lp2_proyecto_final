@@ -32,7 +32,7 @@ public final class Transferencia extends DBObject {
     }
     
     public int setMonto(double monto) {
-        if(monto < 0) return -1;
+        if(monto < 0) throw new IllegalArgumentException("Monto negativo no permitido");
         else {
             this.monto = monto;
             return 0;

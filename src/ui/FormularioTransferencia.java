@@ -44,6 +44,8 @@ public final class FormularioTransferencia extends InnerGui {
                 Mensaje.crearMensajeError("inputNoCorrectoTitulo", "inputNoCorrecto");
             } catch (SesionExpiradaException ex) {
                 app.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, App.CERRAR_SESION));
+            } catch(IllegalArgumentException ex) {
+                Mensaje.crearMensajeError("montoNegativoTitulo", "montoNegativo");
             }
         });
         

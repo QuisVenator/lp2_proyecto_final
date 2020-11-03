@@ -95,7 +95,9 @@ public class language extends ListResourceBundle {
         {"cuentaEliminada",                 "Se ha eliminada la cuenta {0}"},
         {"servicioEliminadoTitulo",         "Serviciio eliminado"},
         {"servicioEliminado",               "Se ha eliminado el servicio {0}"},
-        {"cuentaBloqueadaError",            "Su cuenta se encuentra bloqueada"}
+        {"cuentaBloqueadaError",            "Su cuenta se encuentra bloqueada"},
+        {"montoNegativoTitulo",             "Monto negativo"},
+        {"montoNegativo",                   "No se permiten montos negativos"}
     };
     @Override
     protected Object[][] getContents() {

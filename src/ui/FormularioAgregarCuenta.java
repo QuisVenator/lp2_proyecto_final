@@ -62,10 +62,10 @@ public final class FormularioAgregarCuenta extends InnerGui {
             try {
                 int doc = Integer.parseInt(ciText.getText());
                 int niv = Integer.parseInt(accesoText.getText());
-                ((SesionEmpleado)app.sesion).agregarPersona(doc, nombreText.getText(), apellidoText.getText(),
-                        telText.getText(), direccionText.getText(), correoText.getText(), niv);
-                
-                ((SesionEmpleado)app.sesion).agregarCuenta(doc, niv);
+                if(((SesionEmpleado)app.sesion).agregarPersona(doc, nombreText.getText(), apellidoText.getText(),
+                        telText.getText(), direccionText.getText(), correoText.getText(), niv) == 0) {
+                    ((SesionEmpleado)app.sesion).agregarCuenta(doc, niv);
+                }
             } catch (NumberFormatException ex) {
                 Mensaje.crearMensajeError("inputNoCorrectoTitulo", "inputNoCorrecto");
             } catch (SesionExpiradaException ex) {

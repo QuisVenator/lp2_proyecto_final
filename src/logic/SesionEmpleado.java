@@ -260,7 +260,7 @@ public class SesionEmpleado extends Sesion {
             stmt.setString(5, direccion);
             stmt.setInt(6, documento);
             stmt.setInt(7, acceso);
-            stmt.executeQuery();
+            stmt.executeUpdate();
             return 0;
         } catch(SQLException ex) {
             Mensaje.crearMensajeError("dbErrorTitulo", "dbErrorMensaje");

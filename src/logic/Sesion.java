@@ -38,7 +38,6 @@ public abstract class Sesion {
                     
                     //cuentas empleados no tienen pin transferencia
                     rs.getString("pinTransferencia");
-                    System.out.println(!rs.wasNull());
                     if(!rs.wasNull()) {
                         //TODO configurar numCliente
                         sesion = new SesionCliente();

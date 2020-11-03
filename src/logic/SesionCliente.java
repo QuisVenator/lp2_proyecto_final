@@ -1,6 +1,7 @@
 
 package logic;
 
+import ui.Reporte;
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -156,5 +157,11 @@ public class SesionCliente extends Sesion {
             Mensaje.crearMensajeError("dbErrorTitulo", "dbErrorMensaje");
             return -3;
         }
+    }
+    
+    public Reporte generarReporte() {
+        Reporte report = new Reporte();
+        
+        report.addTituloPrincipal();
     }
 }

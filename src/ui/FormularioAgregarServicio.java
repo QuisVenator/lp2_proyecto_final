@@ -47,6 +47,10 @@ public final class FormularioAgregarServicio extends InnerGui {
         
         agregarBtn.addActionListener((ActionEvent e) ->{
             try {
+                if(nombreText.getText().equals("")) {
+                    Mensaje.crearMensajeError("inputNoCorrectoTitulo", "inputNoCorrecto");
+                    return;
+                }
                 Servicio servicio = new Servicio(Integer.parseInt(cuentaText.getText()), Double.parseDouble(montoText.getText()),
                         nombreText.getText(), descripcionText.getText(), iconoText.getText());
                 if(((SesionEmpleado)app.sesion).agregarServicio(servicio) == 0) {
@@ -57,6 +61,8 @@ public final class FormularioAgregarServicio extends InnerGui {
                 Mensaje.crearMensajeError("inputNoCorrectoTitulo", "inputNoCorrecto");
             } catch (SesionExpiradaException ex) {
                 app.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, App.CERRAR_SESION));
+            } catch(IllegalArgumentException ex) {
+                Mensaje.crearMensajeError("montoNegativoTitulo", "montoNegativo");
             }
         });
         

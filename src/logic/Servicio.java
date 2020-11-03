@@ -55,10 +55,6 @@ public class Servicio extends DBObject {
     public double getMonto() {
         return monto;
     }
-    public int pagar(Cuenta cuenta) {
-        //TODO implementar
-        throw new UnsupportedOperationException();
-    }
     
     @Override
     public int guardar() {
