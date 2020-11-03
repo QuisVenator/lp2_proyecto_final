@@ -5,7 +5,7 @@ El código fuente está disponbible libremente en https://github.com/itext/itext
 
 package ui;
 
-import com.itextpdf.io.font.FontConstants;
+import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
@@ -25,17 +25,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 
-
-/**
- *
- * @author ...
- */
 public class Reporte {
     private String direction;
     private PdfDocument archivoPdf;
@@ -59,7 +53,7 @@ public class Reporte {
         this.archivoPdf = new PdfDocument(this.writer);
         this.documento = new Document(archivoPdf,PageSize.A4);
         try {
-            this.fuente = PdfFontFactory.createFont(FontConstants.TIMES_ROMAN);
+            this.fuente = PdfFontFactory.createFont(StandardFonts.TIMES_ROMAN);
         } catch (IOException ex) {
             System.out.println("Error Fuentes: " + ex);
         }
