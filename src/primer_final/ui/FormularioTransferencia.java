@@ -1,41 +1,49 @@
-package primer_final.idiomas.ui;
+package primer_final.ui;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
-import primer_final.logic.SesionEmpleado;
+import primer_final.logic.SesionCliente;
 import primer_final.logic.excepciones.SesionExpiradaException;
 
-public final class FormularioDeposito extends InnerGui {
-    private final JButton depositar;
+public final class FormularioTransferencia extends InnerGui {
+    private final JButton efectuarTransferencia;
     private final JTextField cuentaText, montoText;
-    private final JLabel cuentaLabel, montoLabel, titulo;
-    private final JPanel[] lineas = new JPanel[6];
+    private final JPasswordField pinText;
+    private final JLabel cuentaLabel, pinLabel, titulo, montoLabel;
+    private final JPanel[] lineas = new JPanel[7];
     private App app;
-    public FormularioDeposito(App app) {
+    public FormularioTransferencia(App app) {
         this.app = app;
         //crear elementos
-        depositar = new JButton(app.getLanguage().getString("deposito"));
+        efectuarTransferencia = new JButton(app.getLanguage().getString("efectuarTransferencia"));
         cuentaLabel = new JLabel(app.getLanguage().getString("nroCuenta"));
         cuentaLabel.setPreferredSize(new Dimension(100, 20));
         montoLabel = new JLabel(app.getLanguage().getString("monto"));
         montoLabel.setPreferredSize(new Dimension(100, 20));
+        pinLabel = new JLabel(app.getLanguage().getString("pinTransferencia"));
+        pinLabel.setPreferredSize(new Dimension(100, 20));
         cuentaText = new JTextField(20);
         cuentaText.setPreferredSize(new Dimension(150, 20));
         montoText = new JTextField(20);
         montoText.setPreferredSize(new Dimension(150, 20));
-        titulo = new JLabel(app.getLanguage().getString("hacerDeposito"));
+        pinText = new JPasswordField(20);
+        pinText.setPreferredSize(new Dimension(150, 20));
+        titulo = new JLabel(app.getLanguage().getString("transferencia"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
         
         //agregar funcionalidad al boton
-        depositar.addActionListener((ActionEvent e) -> {
+        efectuarTransferencia.addActionListener((ActionEvent e) -> {
             try {
-                ((SesionEmpleado)app.sesion).deposito(Double.parseDouble(montoText.getText()), Integer.parseInt(cuentaText.getText()));
-            } catch (SesionExpiradaException ex) {
-                app.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, App.CERRAR_SESION));
+                ((SesionCliente)app.sesion).generarTransferencia(Integer.parseInt(cuentaText.getText()), 
+                        Double.parseDouble(montoText.getText()), new String(pinText.getPassword()));
             } catch (NumberFormatException ex) {
                 Mensaje.crearMensajeError("inputNoCorrectoTitulo", "inputNoCorrecto");
-            } 
+            } catch (SesionExpiradaException ex) {
+                app.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, App.CERRAR_SESION));
+            } catch(IllegalArgumentException ex) {
+                Mensaje.crearMensajeError("montoNegativoTitulo", "montoNegativo");
+            }
         });
         
         //preparar lineas
@@ -53,7 +61,9 @@ public final class FormularioDeposito extends InnerGui {
         lineas[2].add(cuentaText);
         lineas[3].add(montoLabel);
         lineas[3].add(montoText);
-        lineas[4].add(depositar);
+        lineas[4].add(pinLabel);
+        lineas[4].add(pinText);
+        lineas[5].add(efectuarTransferencia);
         
         //agregar lineas a ventana
         for(int i = 0; i < lineas.length; i++) 
@@ -62,9 +72,10 @@ public final class FormularioDeposito extends InnerGui {
 
     @Override
     public void languageReload() {
-        depositar.setText(app.getLanguage().getString("deposito"));
+        efectuarTransferencia.setText(app.getLanguage().getString("efectuarTransferencia"));
         cuentaLabel.setText(app.getLanguage().getString("nroCuenta"));
         montoLabel.setText(app.getLanguage().getString("monto"));
-        titulo.setText(app.getLanguage().getString("hacerDeposito"));
+        pinLabel.setText(app.getLanguage().getString("pinTransferencia"));
+        titulo.setText(app.getLanguage().getString("transferencia"));
     }
 }

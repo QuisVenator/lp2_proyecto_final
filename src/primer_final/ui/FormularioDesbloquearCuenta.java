@@ -1,33 +1,32 @@
-package primer_final.idiomas.ui;
+package primer_final.ui;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
-import primer_final.logic.CuentaCliente;
 import primer_final.logic.SesionEmpleado;
 import primer_final.logic.excepciones.SesionExpiradaException;
 
-public final class FormularioEliminarCuenta extends InnerGui {
-    private final JButton eliminarBtn;
+public final class FormularioDesbloquearCuenta extends InnerGui {
+    private final JButton desbloquearBtn;
     private final JTextField cuentaText;
     private final JLabel cuentaLabel, titulo;
     private final JPanel[] lineas = new JPanel[5];
     private App app;
-    public FormularioEliminarCuenta(App app) {
+    public FormularioDesbloquearCuenta(App app) {
         this.app = app;
         //crear elementos
-        eliminarBtn = new JButton(app.getLanguage().getString("eliminar"));
+        desbloquearBtn = new JButton(app.getLanguage().getString("desbloquear"));
         cuentaLabel = new JLabel(app.getLanguage().getString("nroCuenta"));
         cuentaLabel.setPreferredSize(new Dimension(100, 20));
         cuentaText = new JTextField(20);
         cuentaText.setPreferredSize(new Dimension(150, 20));
-        titulo = new JLabel(app.getLanguage().getString("eliminarCuenta"));
+        titulo = new JLabel(app.getLanguage().getString("desbloquearCuenta"));
         titulo.setFont(new Font(titulo.getName(), Font.PLAIN, 20));
         
         //agregar funcionalidad al boton
-        eliminarBtn.addActionListener((ActionEvent e) -> {
-            try{
-                ((SesionEmpleado)app.sesion).eliminarCuenta(new CuentaCliente(null, null, Integer.parseInt(cuentaText.getText())));
+        desbloquearBtn.addActionListener((ActionEvent e) ->{
+            try {
+                ((SesionEmpleado)app.sesion).desbloquearCuenta(Integer.parseInt(cuentaText.getText()));
             } catch (NumberFormatException ex) {
                 Mensaje.crearMensajeError("inputNoCorrectoTitulo", "inputNoCorrecto");
             } catch (SesionExpiradaException ex) {
@@ -48,7 +47,7 @@ public final class FormularioEliminarCuenta extends InnerGui {
         lineas[1].add(titulo);
         lineas[2].add(cuentaLabel);
         lineas[2].add(cuentaText);
-        lineas[3].add(eliminarBtn);
+        lineas[3].add(desbloquearBtn);
         
         //agregar lineas a ventana
         for(int i = 0; i < lineas.length; i++) 
@@ -57,8 +56,8 @@ public final class FormularioEliminarCuenta extends InnerGui {
 
     @Override
     public void languageReload() {
-        eliminarBtn.setText(app.getLanguage().getString("eliminar"));
+        desbloquearBtn.setText(app.getLanguage().getString("desbloquear"));
         cuentaLabel.setText(app.getLanguage().getString("nroCuenta"));
-        titulo.setText(app.getLanguage().getString("eliminarCuenta"));
+        titulo.setText(app.getLanguage().getString("desbloquearCuenta"));
     }
 }

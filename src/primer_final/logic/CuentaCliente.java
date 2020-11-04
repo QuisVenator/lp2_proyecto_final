@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import primer_final.password_hashing.PasswordStorage;
 import primer_final.password_hashing.PasswordStorage.CannotPerformOperationException;
 import primer_final.password_hashing.PasswordStorage.InvalidHashException;
-import primer_final.idiomas.ui.Mensaje;
+import primer_final.ui.Mensaje;
 
 /**
  * Específicamente para Cuentas de clientes

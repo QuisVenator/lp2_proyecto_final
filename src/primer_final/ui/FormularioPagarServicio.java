@@ -1,5 +1,5 @@
 
-package primer_final.idiomas.ui;
+package primer_final.ui;
 
 import java.awt.Color;
 import java.awt.Dimension;

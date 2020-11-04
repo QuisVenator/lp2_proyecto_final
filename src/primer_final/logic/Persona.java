@@ -4,7 +4,7 @@ package primer_final.logic;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import primer_final.idiomas.ui.Mensaje;
+import primer_final.ui.Mensaje;
 
 public class Persona extends DBObject {
     private String nombre, apellido, correo, direccion, numeroTel;

@@ -99,7 +99,9 @@ public class language_en extends ListResourceBundle {
         {"id",                              "ID"},
         {"transferenciasRealizadas",        "Transfers made"},
         {"transferenciasRecibidas",         "Incoming Transfers"},
-        {"transferenciasAServicios",        "Transfers to Services"}
+        {"transferenciasAServicios",        "Transfers to Services"},
+        {"transaccionFallidaTitulo",        "Transaction failed"},
+        {"transaccionFallida",              "Transaction failed, please make sure the destination Account is correct."}
     };
     @Override
     protected Object[][] getContents() {

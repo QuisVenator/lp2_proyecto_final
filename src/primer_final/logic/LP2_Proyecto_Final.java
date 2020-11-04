@@ -1,7 +1,7 @@
 package primer_final.logic;
 
-import primer_final.idiomas.ui.Mensaje;
-import primer_final.idiomas.ui.App;
+import primer_final.ui.Mensaje;
+import primer_final.ui.App;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

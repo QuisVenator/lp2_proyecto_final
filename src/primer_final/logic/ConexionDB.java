@@ -158,9 +158,9 @@ public class ConexionDB {
                 + "(878321, 1234567, '"+contrasenhas[4]+"', '"+contrasenhas[8]+"',5000000), "
                 + "(785124, 9876543, '"+contrasenhas[5]+"', '"+contrasenhas[9]+"',500000);",
             "INSERT INTO Servicio (nombre, descripcion, iconoPath, monto, cuenta) VALUES "
-                + "('Servicio 1', '', 'servicio_ejemplo1_32.png', 10000, 5), "
-                + "('Servicio 2', '', 'servicio_ejemplo2_32.png', 50000, 6),"
-                + "('Otro Servicio', '', 'servicio_ejemplo3_32.png', 50000, 6);",
+                + "('Servicio 1', '', 'servicio_ejemplo1_32.png', 10000, 878321), "
+                + "('Servicio 2', '', 'servicio_ejemplo2_32.png', 50000, 785124),"
+                + "('Otro Servicio', '', 'servicio_ejemplo3_32.png', 50000, 785124);",
             "INSERT INTO Seguridad (T_MAX_SESION_CLIENTE, T_MAX_SESION_ADMIN) VALUES (60000, 300000);"
         };
         

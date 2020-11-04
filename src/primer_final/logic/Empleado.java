@@ -4,7 +4,7 @@ package primer_final.logic;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import primer_final.idiomas.ui.Mensaje;
+import primer_final.ui.Mensaje;
 
 public class Empleado extends Persona {
     private int nivAcceso; //actualmente se usa solo nivel 0 y 1, pero en un futuro podría ser utilizado para distinguir entre categorías de Empleados como Admin y Soporte

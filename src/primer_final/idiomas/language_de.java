@@ -100,7 +100,9 @@ public class language_de extends ListResourceBundle {
         {"id",                              "ID"},
         {"transferenciasRealizadas",        "Getätigte Überweisungen"},
         {"transferenciasRecibidas",         "Empfangene Überweisungen"},
-        {"transferenciasAServicios",        "Überweisungen an Dienstleistungen"}
+        {"transferenciasAServicios",        "Überweisungen an Dienstleistungen"},
+        {"transaccionFallidaTitulo",        "Überweisung fehlgeschlagen"},
+        {"transaccionFallida",              "Überweisung fehlgeschlagen, bitt Kontonummer überprüfen."}
     };
     @Override
     protected Object[][] getContents() {

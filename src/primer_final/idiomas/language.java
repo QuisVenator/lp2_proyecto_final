@@ -103,7 +103,9 @@ public class language extends ListResourceBundle {
         {"id",                              "ID"},
         {"transferenciasRealizadas",        "Transferencias Realizadas"},
         {"transferenciasRecibidas",         "Transferencias Recibidas"},
-        {"transferenciasAServicios",        "Transferencias a Servicios"}
+        {"transferenciasAServicios",        "Transferencias a Servicios"},
+        {"transaccionFallidaTitulo",        "Transacción falló"},
+        {"transaccionFallida",              "Transacción falló, revisé por favor el número de cuenta."}
     };
     @Override
     protected Object[][] getContents() {

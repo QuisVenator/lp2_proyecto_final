@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import primer_final.idiomas.ui.Mensaje;
+import primer_final.ui.Mensaje;
 
 
 public final class Transferencia extends DBObject {

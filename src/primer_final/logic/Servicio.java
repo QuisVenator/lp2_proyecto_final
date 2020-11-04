@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Random;
-import primer_final.idiomas.ui.Mensaje;
+import primer_final.ui.Mensaje;
 
 public class Servicio extends DBObject {
     private String nombre, descripcion, iconoPath;

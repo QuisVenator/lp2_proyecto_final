@@ -1,7 +1,7 @@
 
 package primer_final.logic;
 
-import primer_final.idiomas.ui.Reporte;
+import primer_final.ui.Reporte;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 import primer_final.logic.excepciones.SesionExpiradaException;
 import primer_final.password_hashing.PasswordStorage;
-import primer_final.idiomas.ui.Mensaje;
+import primer_final.ui.Mensaje;
 
 public class SesionCliente extends Sesion {
     

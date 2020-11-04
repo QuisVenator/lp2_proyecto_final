@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Date;
-import primer_final.idiomas.ui.Mensaje;
+import primer_final.ui.Mensaje;
 
 /**
  * Objeto usado para guardar un historial de acciones en base de datos.
